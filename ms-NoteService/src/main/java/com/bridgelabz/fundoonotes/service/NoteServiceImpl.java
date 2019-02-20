@@ -3,8 +3,6 @@ package com.bridgelabz.fundoonotes.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +25,7 @@ public class NoteServiceImpl implements NoteService {
 	private TokenGenerator tokenGenerator;
 
 	@Override
-	public boolean create(Note note, String token, HttpServletRequest request) {
+	public boolean create(Note note, String token) {
 		int userId = tokenGenerator.verifyToken(token);
 		note.setUserId(userId);
 		Note registeredNote = noteRepository.save(note);
@@ -35,7 +33,7 @@ public class NoteServiceImpl implements NoteService {
 	}
 
 	@Override
-	public List<Note> retrieve(String token, HttpServletRequest request) {
+	public List<Note> retrieve(String token) {
 		List<Note> notes = null;
 		int userId = tokenGenerator.verifyToken(token);
 		notes = noteRepository.findAllByUserId(userId);
@@ -44,7 +42,7 @@ public class NoteServiceImpl implements NoteService {
 	}
 
 	@Override
-	public Note updateNote(int noteId, Note note, String token, HttpServletRequest request) {
+	public Note updateNote(int noteId, Note note, String token) {
 		Note newNote = null;
 		int userId = tokenGenerator.verifyToken(token);
 		List<Note> notes = noteRepository.findAllByUserId(userId);
@@ -61,7 +59,7 @@ public class NoteServiceImpl implements NoteService {
 	}
 
 	@Override
-	public boolean deleteNote(int noteId, String token, HttpServletRequest request) {
+	public boolean deleteNote(int noteId, String token) {
 		int userId = tokenGenerator.verifyToken(token);
 		List<Note> notes = noteRepository.findAllByUserId(userId);
 		if (!notes.isEmpty()) {
@@ -73,7 +71,7 @@ public class NoteServiceImpl implements NoteService {
 	}
 
 	@Override
-	public boolean createLabel(Label label, String token, HttpServletRequest request) {
+	public boolean createLabel(Label label, String token) {
 		int userId = tokenGenerator.verifyToken(token);
 		label.setUserId(userId);
 		Label createdLabel = labelRepository.save(label);
@@ -81,7 +79,7 @@ public class NoteServiceImpl implements NoteService {
 	}
 
 	@Override
-	public List<Label> retrieveLabel(String token, HttpServletRequest request) {
+	public List<Label> retrieveLabel(String token) {
 		List<Label> labels = null;
 		int userId = tokenGenerator.verifyToken(token);
 		labels = labelRepository.findAllByUserId(userId);
@@ -89,7 +87,7 @@ public class NoteServiceImpl implements NoteService {
 	}
 
 	@Override
-	public Label updateLabel(int labelId, Label label, String token, HttpServletRequest request) {
+	public Label updateLabel(int labelId, Label label, String token) {
 		Label newLabel = null;
 		int userId = tokenGenerator.verifyToken(token);
 		List<Label> labels = labelRepository.findAllByUserId(userId);
@@ -102,7 +100,7 @@ public class NoteServiceImpl implements NoteService {
 	}
 
 	@Override
-	public boolean deleteLabel(int labelId, String token, HttpServletRequest request) {
+	public boolean deleteLabel(int labelId, String token) {
 		int userId = tokenGenerator.verifyToken(token);
 		List<Label> labels = labelRepository.findAllByUserId(userId);
 		if (!labels.isEmpty()) {
@@ -114,7 +112,7 @@ public class NoteServiceImpl implements NoteService {
 	}
 
 	@Override
-	public boolean addLabelToNote(int noteId, int labelId, HttpServletRequest request) {
+	public boolean addLabelToNote(int noteId, int labelId) {
 		Note note = noteRepository.findByNoteId(noteId);
 		Label label = labelRepository.findByLabelId(labelId);
 		List<Label> labels = note.getListOfLabels();
@@ -128,7 +126,7 @@ public class NoteServiceImpl implements NoteService {
 	}
 
 	@Override
-	public boolean removeLabelFromNote(int noteId, int labelId, HttpServletRequest request) {
+	public boolean removeLabelFromNote(int noteId, int labelId) {
 		Note note = noteRepository.findByNoteId(noteId);
 		List<Label> labels = note.getListOfLabels();
 		if (!labels.isEmpty()) {

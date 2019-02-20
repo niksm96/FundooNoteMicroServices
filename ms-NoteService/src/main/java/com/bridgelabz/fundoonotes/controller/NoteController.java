@@ -2,34 +2,34 @@ package com.bridgelabz.fundoonotes.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.bridgelabz.fundoonotes.model.Label;
 import com.bridgelabz.fundoonotes.model.Note;
 import com.bridgelabz.fundoonotes.service.NoteService;
 
-@RestController("/note")
+@Controller
+@RequestMapping("/note")
 public class NoteController {
 
 	@Autowired
 	private NoteService noteService;
 
 	@PostMapping(value = "/createnote")
-	public ResponseEntity<?> createNote(@RequestBody Note note,@RequestHeader(value = "token") String token, HttpServletRequest request) {
+	public ResponseEntity<?> createNote(@RequestBody Note note,@RequestHeader(value = "token") String token) {
 			try {
-				if (noteService.create(note, token,request))
+				if (noteService.create(note, token))
 					return new ResponseEntity<String>("Note created successfully",HttpStatus.OK);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -39,8 +39,8 @@ public class NoteController {
 	}
 	
 	@GetMapping(value = "/retrieve")
-	public ResponseEntity<?> retrieve(@RequestHeader(value = "token") String token, HttpServletRequest request){
-		List<Note> notes = noteService.retrieve(token,request);
+	public ResponseEntity<?> retrieve(@RequestHeader(value = "token") String token){
+		List<Note> notes = noteService.retrieve(token);
 		if(!notes.isEmpty())
 			return new ResponseEntity<List<Note>>(notes, HttpStatus.FOUND);
 		else
@@ -48,8 +48,8 @@ public class NoteController {
 	}
 	
 	@PostMapping(value = "/updatenote")
-	public ResponseEntity<?> updateNote(@RequestParam("noteId") int noteId,@RequestBody Note note,@RequestHeader(value = "token") String token, HttpServletRequest request){
-		Note updatedNote = noteService.updateNote(noteId,note,token, request);
+	public ResponseEntity<?> updateNote(@RequestParam("noteId") int noteId,@RequestBody Note note,@RequestHeader(value = "token") String token){
+		Note updatedNote = noteService.updateNote(noteId,note,token);
 		if (updatedNote != null) {
 			return new ResponseEntity<String>("Updated Successfully",HttpStatus.OK);
 		}
@@ -57,8 +57,8 @@ public class NoteController {
 	}
 	
 	@DeleteMapping(value = "/deletenote")
-	public ResponseEntity<?> delete(@RequestParam("noteId") int noteId,@RequestHeader(value = "token") String token,HttpServletRequest request){
-		boolean result = noteService.deleteNote(noteId,token, request);
+	public ResponseEntity<?> delete(@RequestParam("noteId") int noteId,@RequestHeader(value = "token") String token ){
+		boolean result = noteService.deleteNote(noteId,token);
 		if (result) {
 			return new ResponseEntity<String>("Deleted successfully",HttpStatus.OK);
 		}
@@ -66,9 +66,9 @@ public class NoteController {
 	}
 	
 	@PostMapping(value = "/createlabel")
-	public ResponseEntity<?> createLabel(@RequestBody Label label, @RequestHeader(value = "token")	String token,HttpServletRequest request) {
+	public ResponseEntity<?> createLabel(@RequestBody Label label, @RequestHeader(value = "token")	String token) {
 			try {
-				if (noteService.createLabel(label, token,request))
+				if (noteService.createLabel(label, token))
 					return new ResponseEntity<String>("Label created successfully",HttpStatus.OK);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -78,8 +78,8 @@ public class NoteController {
 	}
 	
 	@GetMapping(value = "/retrievelabel")
-	public ResponseEntity<?> retrieveLabel(@RequestHeader(value = "token")	String token,HttpServletRequest request){
-		List<Label> labels = noteService.retrieveLabel(token,request);
+	public ResponseEntity<?> retrieveLabel(@RequestHeader(value = "token")	String token ){
+		List<Label> labels = noteService.retrieveLabel(token);
 		if(!labels.isEmpty())
 			return new ResponseEntity<List<Label>>(labels, HttpStatus.FOUND);
 		else
@@ -87,8 +87,8 @@ public class NoteController {
 	}
 	
 	@PutMapping(value = "/updatelabel")
-	public ResponseEntity<?> updateLabel(@RequestParam("labelId") int labelId,@RequestBody Label label, @RequestHeader(value = "token") String token,HttpServletRequest request){
-		Label updatedLabel = noteService.updateLabel(labelId,label,token ,request);
+	public ResponseEntity<?> updateLabel(@RequestParam("labelId") int labelId,@RequestBody Label label, @RequestHeader(value = "token") String token){
+		Label updatedLabel = noteService.updateLabel(labelId,label,token);
 		if (updatedLabel != null) {
 			return new ResponseEntity<String>("Updated Successfully",HttpStatus.OK);
 		}
@@ -96,8 +96,8 @@ public class NoteController {
 	}
 	
 	@DeleteMapping(value = "/deletelabel")
-	public ResponseEntity<?> deleteLabel(@RequestParam("labelId") int labelId,@RequestHeader(value = "token") String token,HttpServletRequest request){
-		boolean result = noteService.deleteLabel(labelId,token, request);
+	public ResponseEntity<?> deleteLabel(@RequestParam("labelId") int labelId,@RequestHeader(value = "token") String token){
+		boolean result = noteService.deleteLabel(labelId,token);
 		if (result) {
 			return new ResponseEntity<String>("Deleted successfully",HttpStatus.OK);
 		}
@@ -105,8 +105,8 @@ public class NoteController {
 	}
 	
 	@PutMapping(value = "/addlabeltonote")
-	public ResponseEntity<?> addLabelToNote(@RequestParam("noteId") int noteId,@RequestParam("labelId") int labelId, HttpServletRequest request){
-		boolean result = noteService.addLabelToNote(noteId, labelId, request);
+	public ResponseEntity<?> addLabelToNote(@RequestParam("noteId") int noteId,@RequestParam("labelId") int labelId){
+		boolean result = noteService.addLabelToNote(noteId, labelId);
 		if(result) {
 			return new ResponseEntity<String>("Label added to note successfully",HttpStatus.OK);
 		}
@@ -116,8 +116,8 @@ public class NoteController {
 	}
 	
 	@DeleteMapping(value = "/removelabelfromnote")
-	public ResponseEntity<?> removeLabelFromNote(@RequestParam("noteId") int noteId,@RequestParam("labelId") int labelId, HttpServletRequest request){
-		boolean result = noteService.removeLabelFromNote(noteId, labelId, request);
+	public ResponseEntity<?> removeLabelFromNote(@RequestParam("noteId") int noteId,@RequestParam("labelId") int labelId){
+		boolean result = noteService.removeLabelFromNote(noteId, labelId);
 		if(result) {
 			return new ResponseEntity<String>("Label removed successfully from note",HttpStatus.OK);
 		}

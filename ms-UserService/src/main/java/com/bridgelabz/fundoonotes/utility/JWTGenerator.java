@@ -21,7 +21,6 @@ public class JWTGenerator implements TokenGenerator {
 	public int verifyToken(String token) {
 		Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary("secretKey"))
 				.parseClaimsJws(token).getBody();
-		System.out.println("ID: " + claims.getId());
 		return Integer.parseInt(claims.getId());
 
 	}

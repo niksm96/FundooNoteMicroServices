@@ -3,8 +3,9 @@ package com.bridgelabz.fundoonotes.service;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,8 @@ import com.bridgelabz.fundoonotes.utility.TokenGenerator;
 
 @Service
 public class UserServiceImpl implements UserService {
+	
+	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
 	@Autowired
 	private UserRepository userRepository;
@@ -25,7 +28,7 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private PasswordEncoder bcryptEncoder;
-	
+
 	@Autowired
 	private EmailSender emailSender;
 
@@ -33,11 +36,12 @@ public class UserServiceImpl implements UserService {
 	public boolean register(User user, HttpServletRequest request) {
 		String token;
 		user.setPassword(bcryptEncoder.encode(user.getPassword()));
-		User newUser=userRepository.save(user);
-		if (newUser!=null) {
+		User newUser = userRepository.save(user);
+		if (newUser != null) {
 			token = tokenGenerator.generateToken(String.valueOf(newUser.getId()));
 			StringBuffer requestUrl = request.getRequestURL();
 			String activationUrl = requestUrl.substring(0, requestUrl.lastIndexOf("/"));
+			logger.info(activationUrl);
 			activationUrl = activationUrl + "/activationstatus/" + token;
 			emailSender.sendEmail("", "", activationUrl);
 			return true;
@@ -46,22 +50,22 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User login(User user, HttpServletRequest request, HttpServletResponse response) {
+	public String login(User user) {
 		User existingUser = userRepository.findByEmailId(user.getEmailId());
+		logger.debug("user", existingUser);
 		String token = null;
 		boolean isMatch;
 		if (existingUser != null) {
 			isMatch = bcryptEncoder.matches(user.getPassword(), existingUser.getPassword());
-			if (isMatch && user.isActivationStatus()) {
+			if (isMatch && existingUser.isActivationStatus()) {
 				token = tokenGenerator.generateToken(String.valueOf(existingUser.getId()));
-				response.setHeader("token", token);
 			}
 		}
-		return existingUser;
+		return token;
 	}
 
 	@Override
-	public User update(String token, User user, HttpServletRequest request) {
+	public User update(String token, User user) {
 		int id = tokenGenerator.verifyToken(token);
 		Optional<User> optionalUser = userRepository.findById(id);
 		User newUser = optionalUser.get();
@@ -76,11 +80,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean delete(String token, HttpServletRequest request) {
+	public boolean delete(String token) {
 		int id = tokenGenerator.verifyToken(token);
 		Optional<User> optionalUser = userRepository.findById(id);
 		User existingUser = optionalUser.get();
-		if(existingUser != null) {
+		if (existingUser != null) {
 			userRepository.delete(existingUser);
 			return true;
 		}
@@ -88,7 +92,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User activationStatus(String token, HttpServletRequest request) {
+	public User activationStatus(String token) {
 		int id = tokenGenerator.verifyToken(token);
 		Optional<User> optionalUser = userRepository.findById(id);
 		if (optionalUser.isPresent()) {
@@ -115,7 +119,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User resetPassword(User user, String token, HttpServletRequest request) {
+	public User resetPassword(User user, String token) {
 		int id = tokenGenerator.verifyToken(token);
 		Optional<User> optionalUser = userRepository.findById(id);
 		User existingUser = optionalUser.get();

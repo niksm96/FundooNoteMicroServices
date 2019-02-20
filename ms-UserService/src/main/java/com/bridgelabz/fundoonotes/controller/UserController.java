@@ -32,8 +32,8 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	
-	@Autowired 
+
+	@Autowired
 	@Qualifier("userValidator")
 	private Validator userValidator;
 
@@ -43,54 +43,56 @@ public class UserController {
 	}
 
 	@PostMapping("/registeruser")
-	public ResponseEntity<?> register(@Validated @RequestBody User user, BindingResult bindingResult,HttpServletRequest request) {
+	public ResponseEntity<?> register(@Validated @RequestBody User user, BindingResult bindingResult,
+			HttpServletRequest request) {
 		if (bindingResult.hasErrors()) {
 			return new ResponseEntity<String>("Add details in proper format", HttpStatus.CONFLICT);
 		} else {
 			if (userService.register(user, request))
-				return new ResponseEntity<String>("Registered successfully",HttpStatus.OK);
+				return new ResponseEntity<Void>(HttpStatus.OK);
 			else
-				return new ResponseEntity<String>("Registration failed",HttpStatus.CONFLICT);
+				return new ResponseEntity<String>("Registration failed", HttpStatus.CONFLICT);
 		}
 	}
-	
+
 	@PostMapping("/login")
-	public ResponseEntity<?> login(@RequestBody User user,HttpServletRequest request, HttpServletResponse response) {
-		User existingUser = userService.login(user,request, response);
-		if (existingUser != null)
-			return new ResponseEntity<String>("Logged in Successfully", HttpStatus.OK);
-		else
-			return new ResponseEntity<String>("Login failed", HttpStatus.CONFLICT);
+	public ResponseEntity<?> login(@RequestBody User user, HttpServletResponse response) {
+		String token = userService.login(user);
+		System.out.println(token);
+		if (token != null) {
+			response.setHeader("token", token);
+			return new ResponseEntity<Void>(HttpStatus.OK);
+		} else
+			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
 	}
-	
+
 	@PostMapping("/updateuser")
-	public ResponseEntity<?> updateUser(@RequestHeader String token, @RequestBody User user,
-			HttpServletRequest request) {
-		User updatedUser = userService.update(token, user, request);
+	public ResponseEntity<?> updateUser(@RequestHeader String token, @RequestBody User user) {
+		User updatedUser = userService.update(token, user);
 		if (updatedUser != null) {
 			return new ResponseEntity<String>("Updated Successfully", HttpStatus.OK);
 		}
 		return new ResponseEntity<String>("Couldn't update", HttpStatus.CONFLICT);
 	}
-	
+
 	@DeleteMapping(value = "/deleteuser")
-	public ResponseEntity<?> deleteUser(@RequestHeader String token, HttpServletRequest request) {
-		boolean result = userService.delete(token, request);
+	public ResponseEntity<?> deleteUser(@RequestHeader String token) {
+		boolean result = userService.delete(token);
 		if (result) {
 			return new ResponseEntity<String>("Deleted successfully", HttpStatus.OK);
 		}
 		return new ResponseEntity<String>("Couldn't delete", HttpStatus.CONFLICT);
 	}
-	
+
 	@GetMapping("/activationstatus/{token:.+}")
-	public ResponseEntity<?> activateUser(@PathVariable("token") String token, HttpServletRequest request) {
-		User updatedUser = userService.activationStatus(token, request);
+	public ResponseEntity<?> activateUser(@PathVariable("token") String token) {
+		User updatedUser = userService.activationStatus(token);
 		if (updatedUser != null) {
 			return new ResponseEntity<String>("Activated Successfully", HttpStatus.OK);
 		}
 		return new ResponseEntity<String>("Couldn't activate", HttpStatus.CONFLICT);
 	}
-	
+
 	@GetMapping("/forgotpassword")
 	public ResponseEntity<?> forgotPassword(@RequestParam("emailId") String emailId, HttpServletRequest request) {
 		if (userService.forgotPassword(emailId, request)) {
@@ -100,9 +102,8 @@ public class UserController {
 	}
 
 	@PutMapping(value = "/resetpassword/{token:.+}")
-	public ResponseEntity<?> resetPassword(@PathVariable("token") String token, @RequestBody User user,
-			HttpServletRequest request) {
-		User updatedUser = userService.resetPassword(user, token, request);
+	public ResponseEntity<?> resetPassword(@PathVariable("token") String token, @RequestBody User user) {
+		User updatedUser = userService.resetPassword(user, token);
 		if (updatedUser != null) {
 			return new ResponseEntity<String>("Your password has been reset", HttpStatus.OK);
 		}
