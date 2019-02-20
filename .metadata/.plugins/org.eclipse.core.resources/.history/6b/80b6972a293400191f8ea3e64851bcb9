@@ -1,0 +1,54 @@
+package com.bridgelabz.fundoonotes.service;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.bridgelabz.fundoonotes.model.Note;
+import com.bridgelabz.fundoonotes.repository.NoteRepository;
+import com.bridgelabz.fundoonotes.utility.TokenGenerator;
+
+@Service
+public class NoteServiceImpl implements NoteService {
+
+	@Autowired
+	private NoteRepository noteRepository;
+
+	@Autowired
+	private TokenGenerator tokenGenerator;
+
+	@Override
+	public boolean create(Note note, String token, HttpServletRequest request) {
+		int userId = tokenGenerator.verifyToken(token);
+		note.setUserId(userId);
+		Note registeredNote = noteRepository.save(note);
+		return (registeredNote != null) ? true : false;
+	}
+
+	@Override
+	public List<Note> retrieve(String token, HttpServletRequest request) {
+		List<Note> notes = null;
+		int userId = tokenGenerator.verifyToken(token);
+		
+		if (user != null)
+			notes = noteDao.retrieve(user);
+		return notes;
+
+	}
+
+	@Override
+	public Note updateNote(int noteId, Note note, String token, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean deleteNote(int noteId, String token, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+}

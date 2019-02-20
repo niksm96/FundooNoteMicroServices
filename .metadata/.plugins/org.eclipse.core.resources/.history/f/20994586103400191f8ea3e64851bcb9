@@ -1,0 +1,15 @@
+package com.bridgelabz.fundoonotes.config;
+
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+@Configuration
+@ComponentScan("com.bridgelabz.fundoonotes")
+public class ApplicationConfig {
+	
+public BCryptPasswordEncoder getPasscode()
+{
+	return new BCryptPasswordEncoder();
+}
+}

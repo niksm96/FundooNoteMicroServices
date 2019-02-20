@@ -1,0 +1,18 @@
+package com.bridgelabz.fundoonotes.service;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import com.bridgelabz.fundoonotes.model.Note;
+
+public interface NoteService {
+	
+	boolean create(Note note, String token, HttpServletRequest request);
+
+	List<Note> retrieve(String token, HttpServletRequest request);
+
+	Note updateNote(int noteId, Note note, String token, HttpServletRequest request);
+
+	boolean deleteNote(int noteId, String token, HttpServletRequest request);
+}

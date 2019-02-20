@@ -1,0 +1,52 @@
+package com.bridgelabz.fundoonotes.service;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.bridgelabz.fundoonotes.model.User;
+
+public class UserServiceImpl implements UserService{
+
+	@Override
+	public boolean register(User user, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public User login(User user, HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User update(String token, User user, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean delete(String token, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public User activationStatus(String token, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean forgotPassword(String emailId, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public User resetPassword(User user, String token, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

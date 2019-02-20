@@ -1,0 +1,7 @@
+package com.bridgelabz.fundoonotes.filter;
+
+import javax.servlet.Filter;
+
+public class CorsFilterConfiguration implements Filter{
+
+}
