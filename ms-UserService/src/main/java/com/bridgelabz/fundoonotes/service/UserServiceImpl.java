@@ -17,7 +17,7 @@ import com.bridgelabz.fundoonotes.utility.TokenGenerator;
 
 @Service
 public class UserServiceImpl implements UserService {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
 	@Autowired
@@ -34,11 +34,10 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean register(User user, HttpServletRequest request) {
-		String token;
 		user.setPassword(bcryptEncoder.encode(user.getPassword()));
 		User newUser = userRepository.save(user);
 		if (newUser != null) {
-			token = tokenGenerator.generateToken(String.valueOf(newUser.getId()));
+			String token = tokenGenerator.generateToken(String.valueOf(newUser.getId()));
 			StringBuffer requestUrl = request.getRequestURL();
 			String activationUrl = requestUrl.substring(0, requestUrl.lastIndexOf("/"));
 			logger.info(activationUrl);
@@ -53,48 +52,36 @@ public class UserServiceImpl implements UserService {
 	public String login(User user) {
 		User existingUser = userRepository.findByEmailId(user.getEmailId());
 		logger.debug("user", existingUser);
-		String token = null;
-		boolean isMatch;
 		if (existingUser != null) {
-			isMatch = bcryptEncoder.matches(user.getPassword(), existingUser.getPassword());
-			if (isMatch && existingUser.isActivationStatus()) {
-				token = tokenGenerator.generateToken(String.valueOf(existingUser.getId()));
-			}
+			if (bcryptEncoder.matches(user.getPassword(), existingUser.getPassword())
+					&& existingUser.isActivationStatus())
+				return tokenGenerator.generateToken(String.valueOf(existingUser.getId()));
 		}
-		return token;
+		return null;
 	}
 
 	@Override
 	public User update(String token, User user) {
-		int id = tokenGenerator.verifyToken(token);
-		Optional<User> optionalUser = userRepository.findById(id);
-		User newUser = optionalUser.get();
-		if (newUser != null) {
-			newUser.setEmailId(user.getEmailId());
-			newUser.setName(user.getName());
-			newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
-			newUser.setMobileNumber(user.getMobileNumber());
-			userRepository.save(newUser);
-		}
-		return newUser;
+		Optional<User> optionalUser = userRepository.findById(tokenGenerator.verifyToken(token));
+		return optionalUser.map(existingUser -> 
+			userRepository.save(existingUser.setName(user.getName())
+				.setEmailId(user.getEmailId())
+				.setPassword(user.getPassword())
+				.setMobileNumber(user.getMobileNumber()))).orElseGet(()->null);
 	}
-
+	
 	@Override
 	public boolean delete(String token) {
-		int id = tokenGenerator.verifyToken(token);
-		Optional<User> optionalUser = userRepository.findById(id);
-		User existingUser = optionalUser.get();
-		if (existingUser != null) {
+		Optional<User> optionalUser = userRepository.findById(tokenGenerator.verifyToken(token));
+		return optionalUser.map(existingUser -> {
 			userRepository.delete(existingUser);
 			return true;
-		}
-		return false;
+		}).orElseGet(()->false);
 	}
 
 	@Override
 	public User activationStatus(String token) {
-		int id = tokenGenerator.verifyToken(token);
-		Optional<User> optionalUser = userRepository.findById(id);
+		Optional<User> optionalUser = userRepository.findById(tokenGenerator.verifyToken(token));
 		if (optionalUser.isPresent()) {
 			User user = optionalUser.get();
 			user.setActivationStatus(true);

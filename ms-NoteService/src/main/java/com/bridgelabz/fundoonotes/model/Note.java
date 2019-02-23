@@ -65,80 +65,90 @@ public class Note {
 		return noteId;
 	}
 
-	public void setNoteId(int noteId) {
+	public Note setNoteId(int noteId) {
 		this.noteId = noteId;
+		return this;
 	}
 
 	public String getTitle() {
 		return title;
 	}
 
-	public void setTitle(String title) {
+	public Note setTitle(String title) {
 		this.title = title;
+		return this;
 	}
 
 	public String getDescription() {
 		return description;
 	}
 
-	public void setDescription(String description) {
+	public Note setDescription(String description) {
 		this.description = description;
+		return this;
 	}
 
 	public Date getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(Date createdAt) {
+	public Note setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
+		return this;
 	}
 
 	public Date getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public void setUpdatedAt(Date updatedAt) {
+	public Note setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
+		return this;
 	}
 
 	public boolean isArchive() {
 		return isArchive;
 	}
 
-	public void setArchive(boolean isArchive) {
+	public Note setArchive(boolean isArchive) {
 		this.isArchive = isArchive;
+		return this;
 	}
 
 	public boolean isPinned() {
 		return isPinned;
 	}
 
-	public void setPinned(boolean isPinned) {
+	public Note setPinned(boolean isPinned) {
 		this.isPinned = isPinned;
+		return this;
 	}
 
 	public boolean isTrashed() {
 		return isTrashed;
 	}
 
-	public void setTrashed(boolean isTrashed) {
+	public Note setTrashed(boolean isTrashed) {
 		this.isTrashed = isTrashed;
+		return this;
 	}
 
 	public int getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public Note setUserId(int userId) {
 		this.userId = userId;
+		return this;
 	}
 
 	public List<Label> getListOfLabels() {
 		return listOfLabels;
 	}
 
-	public void setListOfLabels(List<Label> listOfLabels) {
+	public Note setListOfLabels(List<Label> listOfLabels) {
 		this.listOfLabels = listOfLabels;
+		return this;
 	}
 
 	@Override

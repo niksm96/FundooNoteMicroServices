@@ -34,48 +34,54 @@ public class User {
 		return id;
 	}
 
-	public void setId(int id) {
+	public User setId(int id) {
 		this.id = id;
+		return this;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+	public User setName(String name) {
 		this.name = name;
+		return this;
 	}
 
 	public String getEmailId() {
 		return emailId;
 	}
 
-	public void setEmailId(String emailId) {
+	public User setEmailId(String emailId) {
 		this.emailId = emailId;
+		return this;
 	}
 
 	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(String password) {
+	public User setPassword(String password) {
 		this.password = password;
+		return this;
 	}
 
 	public long getMobileNumber() {
 		return mobileNumber;
 	}
 
-	public void setMobileNumber(long mobileNumber) {
+	public User setMobileNumber(long mobileNumber) {
 		this.mobileNumber = mobileNumber;
+		return this;
 	}
 
 	public boolean isActivationStatus() {
 		return activationStatus;
 	}
 
-	public void setActivationStatus(boolean activationStatus) {
+	public User setActivationStatus(boolean activationStatus) {
 		this.activationStatus = activationStatus;
+		return this;
 	}
 
 	@Override

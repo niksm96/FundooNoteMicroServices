@@ -3,6 +3,8 @@ package com.bridgelabz.fundoonotes.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -29,6 +31,8 @@ import com.bridgelabz.fundoonotes.service.UserService;
 @Controller
 @RequestMapping("/user")
 public class UserController {
+
+	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	@Autowired
 	private UserService userService;
@@ -77,11 +81,15 @@ public class UserController {
 
 	@DeleteMapping(value = "/deleteuser")
 	public ResponseEntity<?> deleteUser(@RequestHeader String token) {
-		boolean result = userService.delete(token);
-		if (result) {
+		try {
+			if (!userService.delete(token)) {
+				return new ResponseEntity<String>("Couldn't delete", HttpStatus.NOT_FOUND);
+			}
 			return new ResponseEntity<String>("Deleted successfully", HttpStatus.OK);
+		} catch (Exception e) {
+			logger.error("Error occured", e);
+			return new ResponseEntity<String>("Couldn't delete", HttpStatus.CONFLICT);
 		}
-		return new ResponseEntity<String>("Couldn't delete", HttpStatus.CONFLICT);
 	}
 
 	@GetMapping("/activationstatus/{token:.+}")

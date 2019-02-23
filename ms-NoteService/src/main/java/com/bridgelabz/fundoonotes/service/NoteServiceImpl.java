@@ -1,7 +1,10 @@
 package com.bridgelabz.fundoonotes.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +20,7 @@ public class NoteServiceImpl implements NoteService {
 
 	@Autowired
 	private NoteRepository noteRepository;
-	
+
 	@Autowired
 	private LabelRepository labelRepository;
 
@@ -26,89 +29,64 @@ public class NoteServiceImpl implements NoteService {
 
 	@Override
 	public boolean create(Note note, String token) {
-		int userId = tokenGenerator.verifyToken(token);
-		note.setUserId(userId);
-		Note registeredNote = noteRepository.save(note);
-		return (registeredNote != null) ? true : false;
+		note.setUserId(tokenGenerator.verifyToken(token));
+		return noteRepository.save(note) != null;
 	}
 
 	@Override
 	public List<Note> retrieve(String token) {
-		List<Note> notes = null;
-		int userId = tokenGenerator.verifyToken(token);
-		notes = noteRepository.findAllByUserId(userId);
-		System.out.println(notes);
-		return notes;
+		return noteRepository.findAllByUserId(tokenGenerator.verifyToken(token));
 	}
 
 	@Override
 	public Note updateNote(int noteId, Note note, String token) {
-		Note newNote = null;
 		int userId = tokenGenerator.verifyToken(token);
-		List<Note> notes = noteRepository.findAllByUserId(userId);
-		if (!notes.isEmpty()) {
-			newNote = notes.stream().filter(exitingNote -> exitingNote.getNoteId() == noteId).findAny().get();
-			newNote.setTitle(note.getTitle());
-			newNote.setDescription(note.getDescription());
-			newNote.setArchive(note.isArchive());
-			newNote.setPinned(note.isPinned());
-			newNote.setTrashed(note.isTrashed());
-			noteRepository.save(newNote);
-		}
-		return newNote;
+		Optional<Note> maybeNote = noteRepository.findByUserIdAndNoteId(userId, noteId);
+		return maybeNote
+				.map(existingNote -> noteRepository
+						.save(existingNote.setTitle(note.getTitle()).setDescription(note.getDescription())
+								.setArchive(note.isArchive()).setPinned(note.isPinned()).setTrashed(note.isTrashed())))
+				.orElseGet(() -> null);
 	}
 
 	@Override
+	@Transactional
 	public boolean deleteNote(int noteId, String token) {
 		int userId = tokenGenerator.verifyToken(token);
-		List<Note> notes = noteRepository.findAllByUserId(userId);
-		if (!notes.isEmpty()) {
-			Note existingNote = notes.stream().filter(exitingNote -> exitingNote.getNoteId() == noteId).findAny().get();
-			noteRepository.delete(existingNote);
+		Optional<Note> maybeNote = noteRepository.findByUserIdAndNoteId(userId, noteId);
+		return maybeNote.map(note -> {
+			noteRepository.delete(note);
 			return true;
-		}
-		return false;
+		}).orElseGet(() -> false);
 	}
 
 	@Override
 	public boolean createLabel(Label label, String token) {
-		int userId = tokenGenerator.verifyToken(token);
-		label.setUserId(userId);
-		Label createdLabel = labelRepository.save(label);
-		return (createdLabel != null) ? true : false;
+		label.setUserId(tokenGenerator.verifyToken(token));
+		return labelRepository.save(label) != null;
 	}
 
 	@Override
 	public List<Label> retrieveLabel(String token) {
-		List<Label> labels = null;
-		int userId = tokenGenerator.verifyToken(token);
-		labels = labelRepository.findAllByUserId(userId);
-		return labels;
+		return labelRepository.findAllByUserId(tokenGenerator.verifyToken(token));
 	}
 
 	@Override
 	public Label updateLabel(int labelId, Label label, String token) {
-		Label newLabel = null;
 		int userId = tokenGenerator.verifyToken(token);
-		List<Label> labels = labelRepository.findAllByUserId(userId);
-		if (!labels.isEmpty()) {
-			newLabel = labels.stream().filter(exitingLabel -> exitingLabel.getLabelId() == labelId).findAny().get();
-			newLabel.setLabelName(label.getLabelName());
-			labelRepository.save(newLabel);
-		}
-		return newLabel;
+		Optional<Label> maybeLabel = labelRepository.findByUserIdAndLabelId(userId, labelId);
+		return maybeLabel.map(existingLabel -> labelRepository.save(existingLabel.setLabelName(label.getLabelName())))
+				.orElseGet(() -> null);
 	}
 
 	@Override
 	public boolean deleteLabel(int labelId, String token) {
 		int userId = tokenGenerator.verifyToken(token);
-		List<Label> labels = labelRepository.findAllByUserId(userId);
-		if (!labels.isEmpty()) {
-			Label existingLabel = labels.stream().filter(exitingLabel -> exitingLabel.getLabelId() == labelId).findAny().get();
+		Optional<Label> maybeLabel = labelRepository.findByUserIdAndLabelId(userId, labelId);
+		return maybeLabel.map(existingLabel -> {
 			labelRepository.delete(existingLabel);
 			return true;
-		}
-		return false;
+		}).orElseGet(() -> false);
 	}
 
 	@Override

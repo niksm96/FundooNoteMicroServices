@@ -1,1 +1,4 @@
 1550562004419	Rename type 'UserService'
+1550913975300	Extract local variable 'maybeNote'
+1550914323974	Extract method 'updateCurrentNote'
+1550914972307	Extract local variable 'maybeNote'
