@@ -40,7 +40,6 @@ public class UserServiceImpl implements UserService {
 			String token = tokenGenerator.generateToken(String.valueOf(newUser.getId()));
 			StringBuffer requestUrl = request.getRequestURL();
 			String activationUrl = requestUrl.substring(0, requestUrl.lastIndexOf("/"));
-			logger.info(activationUrl);
 			activationUrl = activationUrl + "/activationstatus/" + token;
 			emailSender.sendEmail("", "", activationUrl);
 			return true;
@@ -63,20 +62,20 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User update(String token, User user) {
 		Optional<User> optionalUser = userRepository.findById(tokenGenerator.verifyToken(token));
-		return optionalUser.map(existingUser -> 
-			userRepository.save(existingUser.setName(user.getName())
-				.setEmailId(user.getEmailId())
-				.setPassword(user.getPassword())
-				.setMobileNumber(user.getMobileNumber()))).orElseGet(()->null);
+		return optionalUser
+				.map(existingUser -> userRepository
+						.save(existingUser.setName(user.getName()).setEmailId(user.getEmailId())
+								.setPassword(user.getPassword()).setMobileNumber(user.getMobileNumber())))
+				.orElseGet(() -> null);
 	}
-	
+
 	@Override
 	public boolean delete(String token) {
 		Optional<User> optionalUser = userRepository.findById(tokenGenerator.verifyToken(token));
 		return optionalUser.map(existingUser -> {
 			userRepository.delete(existingUser);
 			return true;
-		}).orElseGet(()->false);
+		}).orElseGet(() -> false);
 	}
 
 	@Override
@@ -92,13 +91,14 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean forgotPassword(String emailId, HttpServletRequest request) {
-		User existingUser = userRepository.findByEmailId(emailId);
+	public boolean forgotPassword(User user, HttpServletRequest request) {
+		User existingUser = userRepository.findByEmailId(user.getEmailId());
 		if (existingUser != null) {
 			String token = tokenGenerator.generateToken(String.valueOf(existingUser.getId()));
-			StringBuffer requestUrl = request.getRequestURL();
-			String forgotPasswordUrl = requestUrl.substring(0, requestUrl.lastIndexOf("/"));
-			forgotPasswordUrl = forgotPasswordUrl + "/resetpassword/" + token;
+//			StringBuffer requestUrl = request.getRequestURL();
+//			String forgotPasswordUrl = requestUrl.substring(0, requestUrl.lastIndexOf("/"));
+//			forgotPasswordUrl = forgotPasswordUrl + "/resetpassword/" + token;
+			String forgotPasswordUrl = "http://localhost:4200/resetpassword/" + token;
 			emailSender.sendEmail("", "", forgotPasswordUrl);
 			return true;
 		}

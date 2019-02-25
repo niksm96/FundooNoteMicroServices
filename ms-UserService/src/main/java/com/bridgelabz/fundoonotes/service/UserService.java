@@ -15,7 +15,7 @@ public interface UserService {
 
 	User activationStatus(String token);
 
-	boolean forgotPassword(String emailId, HttpServletRequest request);
+	boolean forgotPassword(User user, HttpServletRequest request);
 	
 	User resetPassword(User user,String token);
 }

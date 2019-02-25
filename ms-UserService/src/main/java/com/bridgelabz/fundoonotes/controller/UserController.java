@@ -1,5 +1,7 @@
 package com.bridgelabz.fundoonotes.controller;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -23,7 +25,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bridgelabz.fundoonotes.model.User;
 import com.bridgelabz.fundoonotes.service.UserService;
@@ -93,18 +94,19 @@ public class UserController {
 	}
 
 	@GetMapping("/activationstatus/{token:.+}")
-	public ResponseEntity<?> activateUser(@PathVariable("token") String token) {
+	public ResponseEntity<?> activateUser(@PathVariable("token") String token, HttpServletResponse response) throws IOException {
 		User updatedUser = userService.activationStatus(token);
 		if (updatedUser != null) {
-			return new ResponseEntity<String>("Activated Successfully", HttpStatus.OK);
+			response.sendRedirect("http://localhost:4200/login");
+			return new ResponseEntity<Void>(HttpStatus.OK);
 		}
 		return new ResponseEntity<String>("Couldn't activate", HttpStatus.CONFLICT);
 	}
 
-	@GetMapping("/forgotpassword")
-	public ResponseEntity<?> forgotPassword(@RequestParam("emailId") String emailId, HttpServletRequest request) {
-		if (userService.forgotPassword(emailId, request)) {
-			return new ResponseEntity<String>("Forgot password operation successful", HttpStatus.OK);
+	@PostMapping("/forgotpassword")
+	public ResponseEntity<?> forgotPassword(@RequestBody User user, HttpServletRequest request) {
+		if (userService.forgotPassword(user, request)) {
+			return new ResponseEntity<Void>(HttpStatus.OK);
 		}
 		return new ResponseEntity<String>("Forgot password operation not successful", HttpStatus.CONFLICT);
 	}
@@ -113,7 +115,7 @@ public class UserController {
 	public ResponseEntity<?> resetPassword(@PathVariable("token") String token, @RequestBody User user) {
 		User updatedUser = userService.resetPassword(user, token);
 		if (updatedUser != null) {
-			return new ResponseEntity<String>("Your password has been reset", HttpStatus.OK);
+			return new ResponseEntity<Void>(HttpStatus.OK);
 		}
 		return new ResponseEntity<String>("Your password couldn't be reset", HttpStatus.CONFLICT);
 	}
