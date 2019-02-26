@@ -34,7 +34,7 @@ public class NoteController {
 	public ResponseEntity<?> createNote(@RequestBody Note note, @RequestHeader(value = "token") String token) {
 		try {
 			noteService.create(note, token);
-			return new ResponseEntity<String>("Note created successfully", HttpStatus.OK);
+			return new ResponseEntity<Void>(HttpStatus.OK);
 		} catch (Exception e) {
 			logger.error("Error occured", e);
 			return new ResponseEntity<String>("Note creation failed", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -42,13 +42,13 @@ public class NoteController {
 
 	}
 
-	@GetMapping(value = "/retrieve")
-	public ResponseEntity<?> retrieveNote(@RequestHeader(value = "token") String token) {
+	@GetMapping(value = "/retrievenote")
+	public ResponseEntity<?> retrieveNote(@RequestHeader(value = "token", required=false) String token) {
 		List<Note> notes = noteService.retrieve(token);
 		if (!notes.isEmpty())
-			return new ResponseEntity<List<Note>>(notes, HttpStatus.FOUND);
+			return new ResponseEntity<List<Note>>(notes,HttpStatus.OK);
 		else
-			return new ResponseEntity<String>("No notes to fetch", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<String>("No notes to fetch", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	@PostMapping(value = "/updatenote")

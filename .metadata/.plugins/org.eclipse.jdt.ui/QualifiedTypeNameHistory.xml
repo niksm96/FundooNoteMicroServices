@@ -18,4 +18,5 @@
 <fullyQualifiedTypeName name="com.bridgelabz.fundoonotes.utility.ListUtils"/>
 <fullyQualifiedTypeName name="javax.transaction.Transactional"/>
 <fullyQualifiedTypeName name="java.util.Optional"/>
+<fullyQualifiedTypeName name="javax.servlet.http.HttpServletResponse"/>
 </qualifiedTypeNameHistroy>

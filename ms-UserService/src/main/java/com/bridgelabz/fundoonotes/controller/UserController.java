@@ -63,10 +63,13 @@ public class UserController {
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody User user, HttpServletResponse response) {
 		String token = userService.login(user);
-		System.out.println(token);
 		if (token != null) {
 			response.setHeader("token", token);
-			return new ResponseEntity<Void>(HttpStatus.OK);
+			logger.info(token);
+			if (response.containsHeader(token))
+				return new ResponseEntity<Void>(HttpStatus.OK);
+			else
+				return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 		} else
 			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
 	}
@@ -94,7 +97,8 @@ public class UserController {
 	}
 
 	@GetMapping("/activationstatus/{token:.+}")
-	public ResponseEntity<?> activateUser(@PathVariable("token") String token, HttpServletResponse response) throws IOException {
+	public ResponseEntity<?> activateUser(@PathVariable("token") String token, HttpServletResponse response)
+			throws IOException {
 		User updatedUser = userService.activationStatus(token);
 		if (updatedUser != null) {
 			response.sendRedirect("http://localhost:4200/login");
