@@ -11,9 +11,9 @@ public interface NoteService {
 
 	List<Note> retrieve(String token);
 
-	Note updateNote(int noteId, Note note, String token);
+	Note updateNote(Note note, String token);
 
-	boolean deleteNote(int noteId, String token);
+	boolean deleteNote(Note note, String token);
 
 	boolean createLabel(Label label, String token);
 

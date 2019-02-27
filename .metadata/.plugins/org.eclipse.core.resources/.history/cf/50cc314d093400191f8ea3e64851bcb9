@@ -1,7 +1,0 @@
-package com.bridgelabz.fundoonotes.utility;
-
-public class TokenGenerator {
-	String generateToken(String id);
-
-	int verifyToken(String token);
-}

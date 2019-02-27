@@ -30,7 +30,8 @@ public class NoteServiceImpl implements NoteService {
 	@Override
 	public boolean create(Note note, String token) {
 		note.setUserId(tokenGenerator.verifyToken(token));
-		return noteRepository.save(note) != null;
+		Note createdNote = noteRepository.save(note);
+		return (createdNote != null)? true : false;
 	}
 
 	@Override
@@ -39,9 +40,9 @@ public class NoteServiceImpl implements NoteService {
 	}
 
 	@Override
-	public Note updateNote(int noteId, Note note, String token) {
+	public Note updateNote(Note note, String token) {
 		int userId = tokenGenerator.verifyToken(token);
-		Optional<Note> maybeNote = noteRepository.findByUserIdAndNoteId(userId, noteId);
+		Optional<Note> maybeNote = noteRepository.findByUserIdAndNoteId(userId, note.getNoteId());
 		return maybeNote
 				.map(existingNote -> noteRepository
 						.save(existingNote.setTitle(note.getTitle()).setDescription(note.getDescription())
@@ -51,11 +52,11 @@ public class NoteServiceImpl implements NoteService {
 
 	@Override
 	@Transactional
-	public boolean deleteNote(int noteId, String token) {
+	public boolean deleteNote(Note note, String token) {
 		int userId = tokenGenerator.verifyToken(token);
-		Optional<Note> maybeNote = noteRepository.findByUserIdAndNoteId(userId, noteId);
-		return maybeNote.map(note -> {
-			noteRepository.delete(note);
+		Optional<Note> maybeNote = noteRepository.findByUserIdAndNoteId(userId, note.getNoteId());
+		return maybeNote.map(toBeDeletedNote -> {
+			noteRepository.delete(toBeDeletedNote);
 			return true;
 		}).orElseGet(() -> false);
 	}

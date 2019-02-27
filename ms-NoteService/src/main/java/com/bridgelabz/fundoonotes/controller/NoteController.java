@@ -33,41 +33,41 @@ public class NoteController {
 	@PostMapping(value = "/createnote")
 	public ResponseEntity<?> createNote(@RequestBody Note note, @RequestHeader(value = "token") String token) {
 		try {
-			noteService.create(note, token);
-			return new ResponseEntity<Void>(HttpStatus.OK);
+			if (noteService.create(note, token))
+				return new ResponseEntity<Void>(HttpStatus.OK);
+			return new ResponseEntity<String>("Note creation failed", HttpStatus.CONFLICT);
+
 		} catch (Exception e) {
 			logger.error("Error occured", e);
-			return new ResponseEntity<String>("Note creation failed", HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<String>("Note creation failed", HttpStatus.CONFLICT);
 		}
 
 	}
 
 	@GetMapping(value = "/retrievenote")
-	public ResponseEntity<?> retrieveNote(@RequestHeader(value = "token", required=false) String token) {
+	public ResponseEntity<?> retrieveNote(@RequestHeader(value = "token", required = false) String token) {
 		List<Note> notes = noteService.retrieve(token);
 		if (!notes.isEmpty())
-			return new ResponseEntity<List<Note>>(notes,HttpStatus.OK);
+			return new ResponseEntity<List<Note>>(notes, HttpStatus.OK);
 		else
 			return new ResponseEntity<String>("No notes to fetch", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
-	@PostMapping(value = "/updatenote")
-	public ResponseEntity<?> updateNote(@RequestParam("noteId") int noteId, @RequestBody Note note,
-			@RequestHeader(value = "token") String token) {
-		Note updatedNote = noteService.updateNote(noteId, note, token);
-		if (updatedNote != null) {
-			return new ResponseEntity<String>("Updated Successfully", HttpStatus.OK);
-		}
+	@PutMapping(value = "/updatenote")
+	public ResponseEntity<?> updateNote(@RequestBody Note note, @RequestHeader(value = "token") String token) {
+		Note updatedNote = noteService.updateNote(note, token);
+		if (updatedNote != null)
+			return new ResponseEntity<Void>(HttpStatus.OK);
 		return new ResponseEntity<String>("Couldn't update", HttpStatus.CONFLICT);
 	}
 
-	@DeleteMapping(value = "/deletenote")
-	public ResponseEntity<?> delete(@RequestParam("noteId") int noteId, @RequestHeader(value = "token") String token) {
+	@PostMapping(value = "/deletenote")
+	public ResponseEntity<?> delete(@RequestBody Note note, @RequestHeader(value = "token") String token) {
 		try {
-			if (!noteService.deleteNote(noteId, token)) {
-				return new ResponseEntity<String>("Note Not found", HttpStatus.NOT_FOUND);
+			if (!noteService.deleteNote(note, token)) {
+				return new ResponseEntity<Void>(HttpStatus.CONFLICT);
 			}
-			return new ResponseEntity<String>("Deleted successfully", HttpStatus.OK);
+			return new ResponseEntity<Void>(HttpStatus.OK);
 		} catch (Exception e) {
 			logger.error("Error occured", e);
 			return new ResponseEntity<String>("Couldn't delete", HttpStatus.CONFLICT);
@@ -108,7 +108,7 @@ public class NoteController {
 	public ResponseEntity<?> deleteLabel(@RequestParam("labelId") int labelId,
 			@RequestHeader(value = "token") String token) {
 		try {
-			if (!noteService.deleteLabel(labelId, token) ){
+			if (!noteService.deleteLabel(labelId, token)) {
 				return new ResponseEntity<String>("Note Not found", HttpStatus.NOT_FOUND);
 			}
 			return new ResponseEntity<String>("Deleted successfully", HttpStatus.OK);

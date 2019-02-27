@@ -1,5 +1,6 @@
 package com.bridgelabz.fundoonotes.model;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +17,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.JoinColumn;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -34,15 +37,13 @@ public class Note {
 	@Column(name = "description")
 	private String description;
 
-	@Column(name = "createdAt", nullable = false, updatable = false)
-	@Temporal(TemporalType.TIMESTAMP)
-	@CreatedDate
-	private Date createdAt;
+	@Column(name = "createdAt")
+	@CreationTimestamp
+	private Timestamp createdAt;
 
-	@Column(name = "updatedAt", nullable = false)
-	@Temporal(TemporalType.TIMESTAMP)
-	@LastModifiedDate
-	private Date updatedAt;
+	@Column(name = "updatedAt")
+	@UpdateTimestamp
+	private Timestamp updatedAt;
 
 	@Column(name = "isArchive")
 	private boolean isArchive;
@@ -88,20 +89,22 @@ public class Note {
 		return this;
 	}
 
-	public Date getCreatedAt() {
+	
+
+	public Timestamp getCreatedAt() {
 		return createdAt;
 	}
 
-	public Note setCreatedAt(Date createdAt) {
+	public Note setCreatedAt(Timestamp createdAt) {
 		this.createdAt = createdAt;
 		return this;
 	}
 
-	public Date getUpdatedAt() {
+	public Timestamp getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public Note setUpdatedAt(Date updatedAt) {
+	public Note setUpdatedAt(Timestamp updatedAt) {
 		this.updatedAt = updatedAt;
 		return this;
 	}
