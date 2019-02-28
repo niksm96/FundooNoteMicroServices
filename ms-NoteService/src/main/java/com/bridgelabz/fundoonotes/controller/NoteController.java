@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -53,18 +54,18 @@ public class NoteController {
 			return new ResponseEntity<String>("No notes to fetch", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
-	@PutMapping(value = "/updatenote")
-	public ResponseEntity<?> updateNote(@RequestBody Note note, @RequestHeader(value = "token") String token) {
-		Note updatedNote = noteService.updateNote(note, token);
+	@PutMapping(value = "/updatenote/{noteId:.+}")
+	public ResponseEntity<?> updateNote(@PathVariable("noteId")int noteId,@RequestBody Note note, @RequestHeader(value = "token") String token) {
+		Note updatedNote = noteService.updateNote(noteId,note, token);
 		if (updatedNote != null)
 			return new ResponseEntity<Void>(HttpStatus.OK);
 		return new ResponseEntity<String>("Couldn't update", HttpStatus.CONFLICT);
 	}
 
-	@PostMapping(value = "/deletenote")
-	public ResponseEntity<?> delete(@RequestBody Note note, @RequestHeader(value = "token") String token) {
+	@DeleteMapping(value = "/deletenote/{noteId:.+}")
+	public ResponseEntity<?> delete(@PathVariable("noteId") int noteId, @RequestHeader(value = "token") String token) {
 		try {
-			if (!noteService.deleteNote(note, token)) {
+			if (!noteService.deleteNote(noteId, token)) {
 				return new ResponseEntity<Void>(HttpStatus.CONFLICT);
 			}
 			return new ResponseEntity<Void>(HttpStatus.OK);
@@ -137,4 +138,14 @@ public class NoteController {
 			return new ResponseEntity<String>("Label could'nt be removed from note", HttpStatus.CONFLICT);
 		}
 	}
+	
+	@GetMapping(value = "/retrievearchivenote")
+	public ResponseEntity<?> retrieveArchiveNote(@RequestHeader(value = "token", required = false) String token) {
+		List<Note> notes = noteService.retrieveArchivedNotes(token);
+		if (!notes.isEmpty())
+			return new ResponseEntity<List<Note>>(notes, HttpStatus.OK);
+		else
+			return new ResponseEntity<String>("No notes to fetch", HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
 }
