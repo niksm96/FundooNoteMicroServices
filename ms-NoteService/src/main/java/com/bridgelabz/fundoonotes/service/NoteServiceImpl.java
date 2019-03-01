@@ -36,7 +36,7 @@ public class NoteServiceImpl implements NoteService {
 
 	@Override
 	public List<Note> retrieve(String token) {
-		return noteRepository.findAllByUserIdAndIsArchive(tokenGenerator.verifyToken(token),false);
+		return noteRepository.findAllByUserId(tokenGenerator.verifyToken(token));
 	}
 
 	@Override
@@ -119,9 +119,9 @@ public class NoteServiceImpl implements NoteService {
 		return false;
 	}
 
-	@Override
-	public List<Note> retrieveArchivedNotes(String token) {
-		return noteRepository.findAllByUserIdAndIsArchive(tokenGenerator.verifyToken(token),true);
-	}
+//	@Override
+//	public List<Note> retrieveArchivedNotes(String token) {
+//		return noteRepository.findAllByUserIdAndIsArchive(tokenGenerator.verifyToken(token),true);
+//	}
 
 }
