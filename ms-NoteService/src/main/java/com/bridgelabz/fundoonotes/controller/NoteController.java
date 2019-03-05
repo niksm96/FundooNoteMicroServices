@@ -79,7 +79,7 @@ public class NoteController {
 	public ResponseEntity<?> createLabel(@RequestBody Label label, @RequestHeader(value = "token") String token) {
 		try {
 			noteService.createLabel(label, token);
-			return new ResponseEntity<String>("Label created successfully", HttpStatus.OK);
+			return new ResponseEntity<Void>(HttpStatus.OK);
 		} catch (Exception e) {
 			logger.error("Error occured", e);
 			return new ResponseEntity<String>("Label creation unsuccessful", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -90,29 +90,28 @@ public class NoteController {
 	public ResponseEntity<?> retrieveLabel(@RequestHeader(value = "token") String token) {
 		List<Label> labels = noteService.retrieveLabel(token);
 		if (!labels.isEmpty())
-			return new ResponseEntity<List<Label>>(labels, HttpStatus.FOUND);
+			return new ResponseEntity<List<Label>>(labels,HttpStatus.OK);
 		else
 			return new ResponseEntity<String>("No labels to fetch", HttpStatus.NOT_FOUND);
 	}
 
-	@PutMapping(value = "/updatelabel")
-	public ResponseEntity<?> updateLabel(@RequestParam("labelId") int labelId, @RequestBody Label label,
-			@RequestHeader(value = "token") String token) {
+	@PutMapping(value = "/updatelabel/{labelId:.+}")
+	public ResponseEntity<?> updateLabel(@PathVariable("labelId")int labelId,@RequestBody Label label, @RequestHeader(value = "token") String token) {
 		Label updatedLabel = noteService.updateLabel(labelId, label, token);
 		if (updatedLabel != null) {
-			return new ResponseEntity<String>("Updated Successfully", HttpStatus.OK);
+			return new ResponseEntity<Void>(HttpStatus.OK);
 		}
 		return new ResponseEntity<String>("Couldn't update", HttpStatus.CONFLICT);
 	}
 
-	@DeleteMapping(value = "/deletelabel")
-	public ResponseEntity<?> deleteLabel(@RequestParam("labelId") int labelId,
+	@DeleteMapping(value = "/deletelabel/{labelId:.+}")
+	public ResponseEntity<?> deleteLabel(@PathVariable("labelId") int labelId,
 			@RequestHeader(value = "token") String token) {
 		try {
 			if (!noteService.deleteLabel(labelId, token)) {
 				return new ResponseEntity<String>("Note Not found", HttpStatus.NOT_FOUND);
 			}
-			return new ResponseEntity<String>("Deleted successfully", HttpStatus.OK);
+			return new ResponseEntity<Void>(HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<String>("Couldn't delete", HttpStatus.CONFLICT);
 		}
