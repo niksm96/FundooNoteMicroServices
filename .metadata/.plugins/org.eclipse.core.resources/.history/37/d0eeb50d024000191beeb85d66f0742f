@@ -98,7 +98,7 @@ public class NoteServiceImpl implements NoteService {
 		Label label = labelRepository.findByLabelId(labelId);
 		List<Label> labels = note.getListOfLabels();
 		labels.add(label);
-		if (!labels.isEmpty() && note !=null && label!=null ) {
+		if (!labels.isEmpty()) {
 			note.setListOfLabels(labels);
 			noteRepository.save(note);
 			return true;

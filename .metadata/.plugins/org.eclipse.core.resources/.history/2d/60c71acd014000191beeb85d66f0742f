@@ -132,7 +132,7 @@ public class NoteController {
 			@RequestParam("labelId") int labelId) {
 		boolean result = noteService.removeLabelFromNote(noteId, labelId);
 		if (result) {
-			return new ResponseEntity<Void>(HttpStatus.OK);
+			return new ResponseEntity<String>("Label removed successfully from note", HttpStatus.OK);
 		} else {
 			return new ResponseEntity<String>("Label could'nt be removed from note", HttpStatus.CONFLICT);
 		}
