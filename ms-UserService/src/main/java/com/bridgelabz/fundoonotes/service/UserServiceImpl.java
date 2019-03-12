@@ -1,5 +1,6 @@
 package com.bridgelabz.fundoonotes.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -116,6 +117,17 @@ public class UserServiceImpl implements UserService {
 			return existingUser;
 		}
 		return null;
+	}
+
+	@Override
+	public List<User> retrieveUsers() {
+		return userRepository.findAll();
+	}
+
+	@Override
+	public User userDetail(String token) {
+		return userRepository.findById(tokenGenerator.verifyToken(token)).get();
+
 	}
 
 }

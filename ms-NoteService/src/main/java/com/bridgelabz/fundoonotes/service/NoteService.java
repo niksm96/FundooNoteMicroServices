@@ -17,7 +17,7 @@ public interface NoteService {
 	
 //	List<Note> retrieveArchivedNotes(String token);
 
-	boolean createLabel(Label label, String token);
+	Label createLabel(Label label, String token);
 
 	List<Label> retrieveLabel(String token);
 
@@ -25,7 +25,7 @@ public interface NoteService {
 
 	boolean deleteLabel(int labelId, String token);
 
-	boolean addLabelToNote(int noteId, int labelId);
+	boolean addLabelToNote(int noteId, Label label);
 
 	boolean removeLabelFromNote(int noteId, int labelId);
 

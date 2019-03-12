@@ -1,6 +1,7 @@
 package com.bridgelabz.fundoonotes.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -122,6 +123,22 @@ public class UserController {
 			return new ResponseEntity<Void>(HttpStatus.OK);
 		}
 		return new ResponseEntity<String>("Your password couldn't be reset", HttpStatus.CONFLICT);
+	}
+
+	@GetMapping(value = "/retrieveusers")
+	public  ResponseEntity<?>  retrieveUsers() {
+		List<User> users = userService.retrieveUsers();
+		if (!users.isEmpty())
+			return new ResponseEntity<List<User>>(users, HttpStatus.OK);
+		return new ResponseEntity<String>("Users couldn't be fetched", HttpStatus.CONFLICT);
+	}
+	
+	@GetMapping(value = "/userdetails")
+	public  ResponseEntity<?>  userDetails(@RequestHeader("token") String token) {
+		User user = userService.userDetail(token);
+		if (user!=null)
+			return new ResponseEntity<User>(user, HttpStatus.OK);
+		return new ResponseEntity<String>("Users couldn't be fetched", HttpStatus.CONFLICT);
 	}
 
 }

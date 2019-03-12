@@ -55,8 +55,9 @@ public class NoteController {
 	}
 
 	@PutMapping(value = "/updatenote/{noteId:.+}")
-	public ResponseEntity<?> updateNote(@PathVariable("noteId")int noteId,@RequestBody Note note, @RequestHeader(value = "token") String token) {
-		Note updatedNote = noteService.updateNote(noteId,note, token);
+	public ResponseEntity<?> updateNote(@PathVariable("noteId") int noteId, @RequestBody Note note,
+			@RequestHeader(value = "token") String token) {
+		Note updatedNote = noteService.updateNote(noteId, note, token);
 		if (updatedNote != null)
 			return new ResponseEntity<Void>(HttpStatus.OK);
 		return new ResponseEntity<String>("Couldn't update", HttpStatus.CONFLICT);
@@ -78,8 +79,10 @@ public class NoteController {
 	@PostMapping(value = "/createlabel")
 	public ResponseEntity<?> createLabel(@RequestBody Label label, @RequestHeader(value = "token") String token) {
 		try {
-			noteService.createLabel(label, token);
-			return new ResponseEntity<Void>(HttpStatus.OK);
+			Label createdLabel = noteService.createLabel(label, token);
+			if (createdLabel != null)
+				return new ResponseEntity<Label>(createdLabel,HttpStatus.OK);
+			return new ResponseEntity<String>("Label creation unsuccessful", HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (Exception e) {
 			logger.error("Error occured", e);
 			return new ResponseEntity<String>("Label creation unsuccessful", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -90,13 +93,14 @@ public class NoteController {
 	public ResponseEntity<?> retrieveLabel(@RequestHeader(value = "token") String token) {
 		List<Label> labels = noteService.retrieveLabel(token);
 		if (!labels.isEmpty())
-			return new ResponseEntity<List<Label>>(labels,HttpStatus.OK);
+			return new ResponseEntity<List<Label>>(labels, HttpStatus.OK);
 		else
 			return new ResponseEntity<String>("No labels to fetch", HttpStatus.NOT_FOUND);
 	}
 
 	@PutMapping(value = "/updatelabel/{labelId:.+}")
-	public ResponseEntity<?> updateLabel(@PathVariable("labelId")int labelId,@RequestBody Label label, @RequestHeader(value = "token") String token) {
+	public ResponseEntity<?> updateLabel(@PathVariable("labelId") int labelId, @RequestBody Label label,
+			@RequestHeader(value = "token") String token) {
 		Label updatedLabel = noteService.updateLabel(labelId, label, token);
 		if (updatedLabel != null) {
 			return new ResponseEntity<Void>(HttpStatus.OK);
@@ -117,9 +121,9 @@ public class NoteController {
 		}
 	}
 
-	@PutMapping(value = "/addlabeltonote")
-	public ResponseEntity<?> addLabelToNote(@RequestParam("noteId") int noteId, @RequestParam("labelId") int labelId) {
-		boolean result = noteService.addLabelToNote(noteId, labelId);
+	@PutMapping(value = "/addlabeltonote/{noteId:.+}")
+	public ResponseEntity<?> addLabelToNote(@PathVariable("noteId") int noteId, @RequestBody Label label) {
+		boolean result = noteService.addLabelToNote(noteId, label);
 		if (result) {
 			return new ResponseEntity<Void>(HttpStatus.OK);
 		} else {
@@ -137,7 +141,7 @@ public class NoteController {
 			return new ResponseEntity<String>("Label could'nt be removed from note", HttpStatus.CONFLICT);
 		}
 	}
-	
+
 //	@GetMapping(value = "/retrievearchivenote")
 //	public ResponseEntity<?> retrieveArchiveNote(@RequestHeader(value = "token", required = false) String token) {
 //		List<Note> notes = noteService.retrieveArchivedNotes(token);
