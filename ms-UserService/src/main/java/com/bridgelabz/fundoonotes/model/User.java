@@ -1,9 +1,12 @@
 package com.bridgelabz.fundoonotes.model;
 
+import java.util.Arrays;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
@@ -29,6 +32,10 @@ public class User {
 
 	@Column(name = "activationStatus")
 	private boolean activationStatus;
+	
+	@Lob
+	@Column(name = "profilePicture")
+	private byte[] profilePicture;
 
 	public int getId() {
 		return id;
@@ -84,10 +91,19 @@ public class User {
 		return this;
 	}
 
+	public byte[] getProfilePicture() {
+		return profilePicture;
+	}
+
+	public User setProfilePicture(byte[] profilePicture) {
+		this.profilePicture = profilePicture;
+		return this;
+	}
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", emailId=" + emailId + ", password=" + password
-				+ ", mobileNumber=" + mobileNumber + ", activationStatus=" + activationStatus + "]";
+				+ ", mobileNumber=" + mobileNumber + ", activationStatus=" + activationStatus + ", profilePicture="
+				+ Arrays.toString(profilePicture) + "]";
 	}
-
 }

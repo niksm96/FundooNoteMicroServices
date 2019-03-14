@@ -9,5 +9,4 @@ import com.bridgelabz.fundoonotes.model.User;
 public interface UserRepository extends JpaRepository<User, Integer>{
 	User findByEmailId(String emailId);
 	
-	
 }

@@ -26,6 +26,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.bridgelabz.fundoonotes.model.User;
 import com.bridgelabz.fundoonotes.service.UserService;
@@ -140,5 +142,19 @@ public class UserController {
 			return new ResponseEntity<User>(user, HttpStatus.OK);
 		return new ResponseEntity<String>("Users couldn't be fetched", HttpStatus.CONFLICT);
 	}
-
+	
+	@PostMapping(value = "/uploadfile/{token:.+}")
+	public  ResponseEntity<?>  storeFile(@RequestParam("file") MultipartFile file,@PathVariable("token") String token) throws IOException {
+		if (userService.store(file, token)!=null)
+			return new ResponseEntity<Void>(HttpStatus.OK);
+		return new ResponseEntity<String>("Image cannot be uploaded", HttpStatus.CONFLICT);
+	}
+	
+	@DeleteMapping(value = "/deleteImage")
+	public  ResponseEntity<?>  deleteImage(@RequestHeader("token") String token) throws IOException {
+		if (userService.deleteImage(token)!=null)
+			return new ResponseEntity<Void>(HttpStatus.OK);
+		return new ResponseEntity<String>("Image cannot be deleted", HttpStatus.CONFLICT);
+	}
+	
 }

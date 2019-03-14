@@ -1,8 +1,11 @@
 package com.bridgelabz.fundoonotes.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.bridgelabz.fundoonotes.model.User;
 
@@ -24,5 +27,9 @@ public interface UserService {
 	List<User> retrieveUsers();
 	
 	User userDetail(String token);
+
+	User store(MultipartFile file, String token) throws IOException;
+	
+	User deleteImage(String token);
 	
 }

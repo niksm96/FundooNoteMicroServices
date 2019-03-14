@@ -1,5 +1,6 @@
 package com.bridgelabz.fundoonotes.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.bridgelabz.fundoonotes.model.User;
 import com.bridgelabz.fundoonotes.repository.UserRepository;
@@ -130,4 +132,24 @@ public class UserServiceImpl implements UserService {
 
 	}
 
+	@Override
+	public User store(MultipartFile file, String token) throws IOException {
+		User user = userRepository.findById(tokenGenerator.verifyToken(token)).get();
+		byte[] profilePicture = file.getBytes();
+		if (profilePicture.length > 0) {
+			user.setProfilePicture(profilePicture);
+			userRepository.save(user);
+		}
+		return user;
+	}
+
+	@Override
+	public User deleteImage(String token) {
+		User user = userRepository.findById(tokenGenerator.verifyToken(token)).get();
+		if(user!=null) {
+			user.setProfilePicture(null);
+			userRepository.save(user);
+		}
+		return user;
+	}
 }
