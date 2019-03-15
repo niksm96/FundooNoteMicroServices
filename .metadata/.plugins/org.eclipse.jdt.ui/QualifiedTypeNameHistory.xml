@@ -5,7 +5,6 @@
 <fullyQualifiedTypeName name="javax.persistence.Table"/>
 <fullyQualifiedTypeName name="javax.persistence.Id"/>
 <fullyQualifiedTypeName name="javax.persistence.GeneratedValue"/>
-<fullyQualifiedTypeName name="javax.persistence.Column"/>
 <fullyQualifiedTypeName name="org.omg.CORBA.UserException"/>
 <fullyQualifiedTypeName name="com.bridgelabz.fundoonotes.service.UserServiceImpl"/>
 <fullyQualifiedTypeName name="org.slf4j.LoggerFactory"/>
@@ -22,5 +21,14 @@
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.GetMapping"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PathVariable"/>
+<fullyQualifiedTypeName name="javax.persistence.Column"/>
+<fullyQualifiedTypeName name="lombok.Data"/>
+<fullyQualifiedTypeName name="org.springframework.data.jpa.repository.JpaRepository"/>
+<fullyQualifiedTypeName name="com.bridgelabz.collaborator.model.Collaborator"/>
+<fullyQualifiedTypeName name="com.bridgelabz.collaborator.service.CollaboratorServiceInf"/>
+<fullyQualifiedTypeName name="org.springframework.web.multipart.MultipartFile"/>
+<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.DeleteMapping"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestHeader"/>
+<fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+<fullyQualifiedTypeName name="com.bridgelabz.collaborator.repository.CollaboratorRepository"/>
 </qualifiedTypeNameHistroy>

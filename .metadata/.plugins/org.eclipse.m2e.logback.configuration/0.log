@@ -6346,3 +6346,89 @@ org.eclipse.core.runtime.CoreException: Could not resolve artifact org.springfra
 2019-03-14 18:45:45,071 [Worker-84: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
 2019-03-14 18:45:45,076 [Worker-84: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
 2019-03-14 18:45:45,076 [Worker-84: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/admin1/FundooNoteMicroServices/ms-UserService/src/test/resources
+2019-03-14 19:26:34,489 [Worker-93: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-03-14 19:26:34,489 [Worker-93: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-03-14 19:26:34,489 [Worker-93: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-03-14 19:26:34,492 [Worker-93: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-03-14 19:26:34,492 [Worker-93: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/admin1/FundooNoteMicroServices/ms-NoteService/src/test/resources
+2019-03-14 19:27:56,306 [Worker-91: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-03-14 19:27:56,307 [Worker-91: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-03-14 19:27:56,307 [Worker-91: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-03-14 19:27:56,308 [Worker-91: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-03-14 19:27:56,308 [Worker-91: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/admin1/FundooNoteMicroServices/ms-NoteService/src/test/resources
+2019-03-14 19:28:15,352 [Worker-95: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-03-14 19:28:15,353 [Worker-95: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-03-14 19:28:15,353 [Worker-95: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-03-14 19:28:15,354 [Worker-95: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-03-14 19:28:15,354 [Worker-95: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/admin1/FundooNoteMicroServices/ms-NoteService/src/test/resources
+2019-03-15 09:09:57,979 [Worker-10: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2019-03-15 16:43:10,762 [Worker-59: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-03-15 16:43:10,796 [Worker-59: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-03-15 16:43:10,817 [Worker-59: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-03-15 16:43:10,820 [Worker-59: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-03-15 16:43:10,820 [Worker-59: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/admin1/FundooNoteMicroServices/ms-UserService/src/test/resources
+2019-03-15 16:43:30,568 [Worker-81: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-03-15 16:43:30,576 [Worker-81: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-03-15 16:43:30,581 [Worker-81: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-03-15 16:43:30,588 [Worker-81: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-03-15 16:43:30,588 [Worker-81: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/admin1/FundooNoteMicroServices/ms-UserService/src/test/resources
+2019-03-15 16:43:51,532 [Worker-80: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-03-15 16:43:51,533 [Worker-80: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-03-15 16:43:51,537 [Worker-80: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-03-15 16:43:51,541 [Worker-80: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-03-15 16:43:51,543 [Worker-80: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/admin1/FundooNoteMicroServices/ms-UserService/src/test/resources
+2019-03-15 16:44:07,936 [Worker-79: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-03-15 16:44:07,936 [Worker-79: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-03-15 16:44:07,941 [Worker-79: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-03-15 16:44:07,943 [Worker-79: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-03-15 16:44:07,943 [Worker-79: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/admin1/FundooNoteMicroServices/ms-UserService/src/test/resources
+2019-03-15 16:44:26,347 [Worker-82: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-03-15 16:44:26,348 [Worker-82: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-03-15 16:44:26,348 [Worker-82: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-03-15 16:44:26,350 [Worker-82: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-03-15 16:44:26,350 [Worker-82: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/admin1/FundooNoteMicroServices/ms-UserService/src/test/resources
+2019-03-15 16:45:48,348 [Worker-59: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-03-15 16:45:48,350 [Worker-59: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-03-15 16:45:48,350 [Worker-59: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-03-15 16:45:48,352 [Worker-59: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-03-15 16:45:48,352 [Worker-59: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/admin1/FundooNoteMicroServices/ms-UserService/src/test/resources
+2019-03-15 16:54:25,082 [Worker-81: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-03-15 16:54:25,085 [Worker-81: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-03-15 16:54:25,085 [Worker-81: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-03-15 16:54:25,087 [Worker-81: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-03-15 16:54:25,087 [Worker-81: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/admin1/FundooNoteMicroServices/ms-UserService/src/test/resources
+2019-03-15 17:02:03,062 [Worker-90: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-03-15 17:02:03,062 [Worker-90: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-03-15 17:02:03,063 [Worker-90: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-03-15 17:02:03,065 [Worker-90: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-03-15 17:02:03,066 [Worker-90: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/admin1/FundooNoteMicroServices/ms-UserService/src/test/resources
+2019-03-15 17:02:11,008 [Worker-88: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-03-15 17:02:11,008 [Worker-88: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-03-15 17:02:11,010 [Worker-88: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-03-15 17:02:11,011 [Worker-88: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-03-15 17:02:11,012 [Worker-88: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/admin1/FundooNoteMicroServices/ms-UserService/src/test/resources
+2019-03-15 17:02:47,383 [Worker-90: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-03-15 17:02:47,383 [Worker-90: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-03-15 17:02:47,392 [Worker-90: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-03-15 17:02:47,398 [Worker-90: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-03-15 17:02:47,399 [Worker-90: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/admin1/FundooNoteMicroServices/ms-UserService/src/test/resources
+2019-03-15 17:02:58,439 [Worker-92: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-03-15 17:02:58,439 [Worker-92: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-03-15 17:02:58,440 [Worker-92: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-03-15 17:02:58,441 [Worker-92: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-03-15 17:02:58,444 [Worker-92: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/admin1/FundooNoteMicroServices/ms-UserService/src/test/resources
+2019-03-15 17:14:14,803 [Worker-93: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-03-15 17:14:14,803 [Worker-93: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-03-15 17:14:14,816 [Worker-93: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-03-15 17:14:14,818 [Worker-93: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-03-15 17:14:14,818 [Worker-93: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/admin1/FundooNoteMicroServices/ms-NoteService/src/test/resources
+2019-03-15 17:38:28,244 [Worker-99: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-03-15 17:38:28,263 [Worker-99: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-03-15 17:38:28,264 [Worker-99: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-03-15 17:38:28,266 [Worker-99: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-03-15 17:38:28,266 [Worker-99: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/admin1/FundooNoteMicroServices/ms-NoteService/src/test/resources
+2019-03-15 17:39:10,461 [Worker-101: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-03-15 17:39:10,461 [Worker-101: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-03-15 17:39:10,462 [Worker-101: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-03-15 17:39:10,463 [Worker-101: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-03-15 17:39:10,463 [Worker-101: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/admin1/FundooNoteMicroServices/ms-NoteService/src/test/resources

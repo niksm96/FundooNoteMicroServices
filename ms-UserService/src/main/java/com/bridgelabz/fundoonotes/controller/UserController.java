@@ -127,11 +127,11 @@ public class UserController {
 		return new ResponseEntity<String>("Your password couldn't be reset", HttpStatus.CONFLICT);
 	}
 
-	@GetMapping(value = "/retrieveusers")
-	public  ResponseEntity<?>  retrieveUsers() {
-		List<User> users = userService.retrieveUsers();
-		if (!users.isEmpty())
-			return new ResponseEntity<List<User>>(users, HttpStatus.OK);
+	@GetMapping(value = "/retrieveusers/{emailId}")
+	public  ResponseEntity<?>  retrieveUsers(@PathVariable String emailId) {
+		User user = userService.retrieveUserByEmailId(emailId);
+		if (user!=null)
+			return new ResponseEntity<User>(user, HttpStatus.OK);
 		return new ResponseEntity<String>("Users couldn't be fetched", HttpStatus.CONFLICT);
 	}
 	
