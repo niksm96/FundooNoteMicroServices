@@ -56,6 +56,9 @@ public class Note {
 	@JoinTable(name = "Note_Label", joinColumns = { @JoinColumn(name = "noteId") }, inverseJoinColumns = {
 			@JoinColumn(name = "labelId") })
 	private List<Label> listOfLabels;
+	
+	@Column(name = "color")
+	private String color;
 
 	public int getNoteId() {
 		return noteId;
@@ -149,11 +152,22 @@ public class Note {
 		return this;
 	}
 
+	
+	public String getColor() {
+		return color;
+	}
+
+	public Note setColor(String color) {
+		this.color = color;
+		return this;
+	}
+
 	@Override
 	public String toString() {
 		return "Note [noteId=" + noteId + ", title=" + title + ", description=" + description + ", createdAt="
 				+ createdAt + ", updatedAt=" + updatedAt + ", isArchive=" + isArchive + ", isPinned=" + isPinned
-				+ ", isTrashed=" + isTrashed + ", userId=" + userId + ", listOfLabels=" + listOfLabels + "]";
+				+ ", isTrashed=" + isTrashed + ", userId=" + userId + ", listOfLabels=" + listOfLabels + ", color="
+				+ color + "]";
 	}
 
 }

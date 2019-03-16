@@ -46,7 +46,7 @@ public class NoteServiceImpl implements NoteService {
 		return maybeNote
 				.map(existingNote -> noteRepository
 						.save(existingNote.setTitle(note.getTitle()).setDescription(note.getDescription())
-								.setArchive(note.isArchive()).setPinned(note.isPinned()).setTrashed(note.isTrashed())))
+								.setArchive(note.isArchive()).setPinned(note.isPinned()).setTrashed(note.isTrashed()).setColor(note.getColor())))
 				.orElseGet(() -> null);
 	}
 	

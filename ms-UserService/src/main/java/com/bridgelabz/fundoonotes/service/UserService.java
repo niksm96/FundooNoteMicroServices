@@ -24,7 +24,7 @@ public interface UserService {
 	
 	User resetPassword(User user,String token);
 	
-	User retrieveUserByEmailId(String emailId);
+	List<User> retrieveUsers();
 	
 	User userDetail(String token);
 

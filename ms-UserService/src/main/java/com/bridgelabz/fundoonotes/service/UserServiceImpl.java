@@ -122,12 +122,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User retrieveUserByEmailId(String emailId) {
-		List<User> users = userRepository.findAllByEmailId(emailId);
-		if(users.size()==1) {
-			return users.get(0);
-		}
-		return null;
+	public List<User> retrieveUsers() {
+		return userRepository.findAll();
 	}
 
 	@Override
