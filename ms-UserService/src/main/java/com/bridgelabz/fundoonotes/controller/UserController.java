@@ -157,4 +157,19 @@ public class UserController {
 		return new ResponseEntity<String>("Image cannot be deleted", HttpStatus.CONFLICT);
 	}
 	
+	@GetMapping(value = "/verifyUser/{emailId}")
+	public  ResponseEntity<?>  verifyUser(@PathVariable("emailId") String emailId) {
+		User user = userService.verifyUser(emailId);
+		if (user!=null)
+			return new ResponseEntity<User>(user, HttpStatus.OK);
+		return new ResponseEntity<String>("Users couldn't be fetched", HttpStatus.CONFLICT);
+	}
+	
+	@GetMapping(value = "/getUserById/{userId}")
+	public  ResponseEntity<?>  getUserById(@PathVariable("userId") int userId) {
+		User user = userService.getUserById(userId);
+		if (user!=null)
+			return new ResponseEntity<User>(user, HttpStatus.OK);
+		return new ResponseEntity<String>("Users couldn't be fetched", HttpStatus.CONFLICT);
+	}
 }

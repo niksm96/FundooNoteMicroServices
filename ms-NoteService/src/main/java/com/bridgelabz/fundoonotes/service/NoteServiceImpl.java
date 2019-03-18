@@ -1,5 +1,6 @@
 package com.bridgelabz.fundoonotes.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -9,8 +10,10 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bridgelabz.fundoonotes.model.Collaborator;
 import com.bridgelabz.fundoonotes.model.Label;
 import com.bridgelabz.fundoonotes.model.Note;
+import com.bridgelabz.fundoonotes.repository.CollaboratorRepository;
 import com.bridgelabz.fundoonotes.repository.LabelRepository;
 import com.bridgelabz.fundoonotes.repository.NoteRepository;
 import com.bridgelabz.fundoonotes.utility.TokenGenerator;
@@ -18,6 +21,9 @@ import com.bridgelabz.fundoonotes.utility.TokenGenerator;
 @Service
 public class NoteServiceImpl implements NoteService {
 
+	@Autowired
+	private CollaboratorRepository collaboratorRepository;
+	
 	@Autowired
 	private NoteRepository noteRepository;
 
@@ -36,13 +42,20 @@ public class NoteServiceImpl implements NoteService {
 
 	@Override
 	public List<Note> retrieve(String token) {
-		return noteRepository.findAllByUserId(tokenGenerator.verifyToken(token));
+		int userId = tokenGenerator.verifyToken(token);
+		List<Note> notes = new ArrayList<Note>();
+		List<Collaborator> collaborators = collaboratorRepository.findAllByUserId(userId);
+		for(Collaborator collaborator: collaborators) {
+			notes.add(noteRepository.findById(collaborator.getNoteId()).get());
+		}
+		notes.addAll(noteRepository.findAllByUserId(userId));
+		return notes;
 	}
 
 	@Override
 	public Note updateNote(int noteId,Note note, String token) {
 		int userId = tokenGenerator.verifyToken(token);
-		Optional<Note> maybeNote = noteRepository.findByUserIdAndNoteId(userId, noteId);
+		Optional<Note> maybeNote = noteRepository.findById(noteId);
 		return maybeNote
 				.map(existingNote -> noteRepository
 						.save(existingNote.setTitle(note.getTitle()).setDescription(note.getDescription())

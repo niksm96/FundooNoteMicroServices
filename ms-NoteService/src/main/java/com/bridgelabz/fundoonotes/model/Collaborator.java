@@ -29,16 +29,7 @@ public class Collaborator {
 	@Column(name = "lastModified")
 	@UpdateTimestamp
 	private Timestamp lastModified;
-
-	public int getCollaboratorId() {
-		return collaboratorId;
-	}
-
-	public Collaborator setCollaboratorId(int collaboratorId) {
-		this.collaboratorId = collaboratorId;
-		return this;
-	}
-
+	
 	public int getNoteId() {
 		return noteId;
 	}

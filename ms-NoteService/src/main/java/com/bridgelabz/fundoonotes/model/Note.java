@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.JoinColumn;
 
@@ -51,14 +52,17 @@ public class Note {
 
 	@Column(name = "userId")
 	private int userId;
-
+	
 	@ManyToMany(fetch = FetchType.EAGER, targetEntity = Label.class, cascade = { CascadeType.ALL })
 	@JoinTable(name = "Note_Label", joinColumns = { @JoinColumn(name = "noteId") }, inverseJoinColumns = {
 			@JoinColumn(name = "labelId") })
 	private List<Label> listOfLabels;
-	
+
 	@Column(name = "color")
 	private String color;
+	
+	@OneToMany(mappedBy = "noteId")
+	private List<Collaborator> collaborators;
 
 	public int getNoteId() {
 		return noteId;
@@ -161,13 +165,22 @@ public class Note {
 		this.color = color;
 		return this;
 	}
+	
+
+	public List<Collaborator> getCollaborators() {
+		return collaborators;
+	}
+
+	public void setCollaborators(List<Collaborator> collaborators) {
+		this.collaborators = collaborators;
+	}
 
 	@Override
 	public String toString() {
 		return "Note [noteId=" + noteId + ", title=" + title + ", description=" + description + ", createdAt="
 				+ createdAt + ", updatedAt=" + updatedAt + ", isArchive=" + isArchive + ", isPinned=" + isPinned
-				+ ", isTrashed=" + isTrashed + ", userId=" + userId + ", listOfLabels=" + listOfLabels + ", color="
-				+ color + "]";
+				+ ", isTrashed=" + isTrashed + ", userId=" + userId + ", collaborators=" + collaborators
+				+ ", listOfLabels=" + listOfLabels + ", color=" + color + "]";
 	}
 
 }

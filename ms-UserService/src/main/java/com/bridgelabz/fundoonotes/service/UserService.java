@@ -32,4 +32,8 @@ public interface UserService {
 	
 	User deleteImage(String token);
 	
+	User verifyUser(String emailId);
+	
+	User getUserById(int user);
+	
 }

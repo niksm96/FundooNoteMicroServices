@@ -20,15 +20,21 @@
 <fullyQualifiedTypeName name="javax.servlet.http.HttpServletResponse"/>
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.GetMapping"/>
-<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PathVariable"/>
-<fullyQualifiedTypeName name="javax.persistence.Column"/>
 <fullyQualifiedTypeName name="lombok.Data"/>
 <fullyQualifiedTypeName name="org.springframework.data.jpa.repository.JpaRepository"/>
-<fullyQualifiedTypeName name="com.bridgelabz.collaborator.model.Collaborator"/>
-<fullyQualifiedTypeName name="com.bridgelabz.collaborator.service.CollaboratorServiceInf"/>
 <fullyQualifiedTypeName name="org.springframework.web.multipart.MultipartFile"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.DeleteMapping"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestHeader"/>
-<fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
 <fullyQualifiedTypeName name="com.bridgelabz.collaborator.repository.CollaboratorRepository"/>
+<fullyQualifiedTypeName name="javax.persistence.Column"/>
+<fullyQualifiedTypeName name="com.bridgelabz.collaborator.model.Collaborator"/>
+<fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
+<fullyQualifiedTypeName name="org.springframework.stereotype.Repository"/>
+<fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+<fullyQualifiedTypeName name="com.bridgelabz.collaborator.service.CollaboratorServiceInf"/>
+<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PathVariable"/>
+<fullyQualifiedTypeName name="javax.persistence.UniqueConstraint"/>
+<fullyQualifiedTypeName name="com.bridgelabz.fundoonotes.repository.CollaboratorRepository"/>
+<fullyQualifiedTypeName name="com.bridgelabz.fundoonotes.model.Collaborator"/>
+<fullyQualifiedTypeName name="org.hibernate.annotations.UpdateTimestamp"/>
 </qualifiedTypeNameHistroy>
