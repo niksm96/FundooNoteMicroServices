@@ -48,6 +48,6 @@
 <fullyQualifiedTypeName name="com.bridgelabz.fundoonotes.repository.CollaboratorRepository"/>
 <fullyQualifiedTypeName name="java.util.Optional"/>
 <fullyQualifiedTypeName name="java.util.List"/>
-<fullyQualifiedTypeName name="com.bridgelabz.fundoonotes.model.Collaborator"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="com.bridgelabz.fundoonotes.model.Collaborator"/>
 </qualifiedTypeNameHistroy>

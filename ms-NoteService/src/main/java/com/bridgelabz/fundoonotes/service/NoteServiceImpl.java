@@ -54,12 +54,12 @@ public class NoteServiceImpl implements NoteService {
 
 	@Override
 	public Note updateNote(int noteId,Note note, String token) {
-		int userId = tokenGenerator.verifyToken(token);
+//		int userId = tokenGenerator.verifyToken(token);
 		Optional<Note> maybeNote = noteRepository.findById(noteId);
 		return maybeNote
 				.map(existingNote -> noteRepository
 						.save(existingNote.setTitle(note.getTitle()).setDescription(note.getDescription())
-								.setArchive(note.isArchive()).setPinned(note.isPinned()).setTrashed(note.isTrashed()).setColor(note.getColor())))
+								.setArchive(note.isArchive()).setPinned(note.isPinned()).setTrashed(note.isTrashed()).setColor(note.getColor()).setReminder(note.getReminder())))
 				.orElseGet(() -> null);
 	}
 	

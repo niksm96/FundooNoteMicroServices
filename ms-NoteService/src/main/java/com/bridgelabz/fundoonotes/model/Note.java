@@ -63,6 +63,10 @@ public class Note {
 	
 	@OneToMany(mappedBy = "noteId")
 	private List<Collaborator> collaborators;
+	
+	@UpdateTimestamp
+	@Column(name = "reminder")
+	private Timestamp reminder;
 
 	public int getNoteId() {
 		return noteId;
@@ -173,6 +177,15 @@ public class Note {
 
 	public void setCollaborators(List<Collaborator> collaborators) {
 		this.collaborators = collaborators;
+	}
+
+	public Timestamp getReminder() {
+		return reminder;
+	}
+
+	public Note setReminder(Timestamp reminder) {
+		this.reminder = reminder;
+		return this;
 	}
 
 	@Override
