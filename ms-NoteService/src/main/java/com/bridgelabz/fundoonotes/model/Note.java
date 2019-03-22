@@ -64,7 +64,6 @@ public class Note {
 	@OneToMany(mappedBy = "noteId")
 	private List<Collaborator> collaborators;
 	
-	@UpdateTimestamp
 	@Column(name = "reminder")
 	private Timestamp reminder;
 
@@ -192,8 +191,8 @@ public class Note {
 	public String toString() {
 		return "Note [noteId=" + noteId + ", title=" + title + ", description=" + description + ", createdAt="
 				+ createdAt + ", updatedAt=" + updatedAt + ", isArchive=" + isArchive + ", isPinned=" + isPinned
-				+ ", isTrashed=" + isTrashed + ", userId=" + userId + ", collaborators=" + collaborators
-				+ ", listOfLabels=" + listOfLabels + ", color=" + color + "]";
+				+ ", isTrashed=" + isTrashed + ", userId=" + userId + ", listOfLabels=" + listOfLabels + ", color="
+				+ color + ", collaborators=" + collaborators + ", reminder=" + reminder + "]";
 	}
 
 }

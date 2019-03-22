@@ -22,13 +22,11 @@
 <fullyQualifiedTypeName name="org.springframework.web.multipart.MultipartFile"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestHeader"/>
 <fullyQualifiedTypeName name="com.bridgelabz.collaborator.repository.CollaboratorRepository"/>
-<fullyQualifiedTypeName name="javax.persistence.Column"/>
 <fullyQualifiedTypeName name="com.bridgelabz.collaborator.model.Collaborator"/>
 <fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
 <fullyQualifiedTypeName name="org.springframework.stereotype.Repository"/>
 <fullyQualifiedTypeName name="com.bridgelabz.collaborator.service.CollaboratorServiceInf"/>
 <fullyQualifiedTypeName name="javax.persistence.UniqueConstraint"/>
-<fullyQualifiedTypeName name="org.hibernate.annotations.UpdateTimestamp"/>
 <fullyQualifiedTypeName name="javax.persistence.OneToMany"/>
 <fullyQualifiedTypeName name="com.fasterxml.jackson.annotation.JsonIgnore"/>
 <fullyQualifiedTypeName name="org.springframework.web.client.RestTemplate"/>
@@ -50,4 +48,7 @@
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="com.bridgelabz.fundoonotes.model.Collaborator"/>
+<fullyQualifiedTypeName name="java.sql.Timestamp"/>
+<fullyQualifiedTypeName name="javax.persistence.Column"/>
+<fullyQualifiedTypeName name="org.hibernate.annotations.UpdateTimestamp"/>
 </qualifiedTypeNameHistroy>
