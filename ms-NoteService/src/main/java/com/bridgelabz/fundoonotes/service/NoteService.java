@@ -1,6 +1,9 @@
 package com.bridgelabz.fundoonotes.service;
 
+import java.io.IOException;
 import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.bridgelabz.fundoonotes.model.Label;
 import com.bridgelabz.fundoonotes.model.Note;
@@ -14,8 +17,6 @@ public interface NoteService {
 	Note updateNote(int noteId, Note note, String token);
 
 	boolean deleteNote(int noteId, String token);
-	
-//	List<Note> retrieveArchivedNotes(String token);
 
 	Label createLabel(Label label, String token);
 
@@ -28,5 +29,7 @@ public interface NoteService {
 	boolean addLabelToNote(int noteId, Label label);
 
 	boolean removeLabelFromNote(int noteId, int labelId);
+	
+	boolean addImages(MultipartFile[] file,int noteId,String token) throws IOException;
 
 }

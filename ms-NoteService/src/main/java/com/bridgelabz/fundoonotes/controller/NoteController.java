@@ -1,11 +1,13 @@
 package com.bridgelabz.fundoonotes.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.bridgelabz.fundoonotes.model.Label;
 import com.bridgelabz.fundoonotes.model.Note;
@@ -81,7 +85,7 @@ public class NoteController {
 		try {
 			Label createdLabel = noteService.createLabel(label, token);
 			if (createdLabel != null)
-				return new ResponseEntity<Label>(createdLabel,HttpStatus.OK);
+				return new ResponseEntity<Label>(createdLabel, HttpStatus.OK);
 			return new ResponseEntity<String>("Label creation unsuccessful", HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (Exception e) {
 			logger.error("Error occured", e);
@@ -142,13 +146,13 @@ public class NoteController {
 		}
 	}
 
-//	@GetMapping(value = "/retrievearchivenote")
-//	public ResponseEntity<?> retrieveArchiveNote(@RequestHeader(value = "token", required = false) String token) {
-//		List<Note> notes = noteService.retrieveArchivedNotes(token);
-//		if (!notes.isEmpty())
-//			return new ResponseEntity<List<Note>>(notes, HttpStatus.OK);
-//		else
-//			return new ResponseEntity<String>("No notes to fetch", HttpStatus.INTERNAL_SERVER_ERROR);
-//	}
+	@PostMapping(value = "/uploadfile/{noteId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public ResponseEntity<?> addImage(@RequestPart("files") MultipartFile[] files, @PathVariable("noteId") int noteId,
+			@RequestHeader("token") String token) throws IOException {
+		System.out.println(files.length);
+		if (noteService.addImages(files, noteId, token))
+			return new ResponseEntity<Void>(HttpStatus.OK);
+		return new ResponseEntity<String>("Images couldn't be added", HttpStatus.CONFLICT);
+	}
 
 }

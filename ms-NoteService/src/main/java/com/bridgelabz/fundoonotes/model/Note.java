@@ -66,6 +66,9 @@ public class Note {
 	
 	@Column(name = "reminder")
 	private Timestamp reminder;
+	
+	@Column(name = "fileNames")
+	private StringBuilder fileNames;
 
 	public int getNoteId() {
 		return noteId;
@@ -187,12 +190,21 @@ public class Note {
 		return this;
 	}
 
+	public StringBuilder getFileNames() {
+		return fileNames;
+	}
+
+	public void setFileNames(StringBuilder fileNames) {
+		this.fileNames = fileNames;
+	}
+
 	@Override
 	public String toString() {
 		return "Note [noteId=" + noteId + ", title=" + title + ", description=" + description + ", createdAt="
 				+ createdAt + ", updatedAt=" + updatedAt + ", isArchive=" + isArchive + ", isPinned=" + isPinned
 				+ ", isTrashed=" + isTrashed + ", userId=" + userId + ", listOfLabels=" + listOfLabels + ", color="
-				+ color + ", collaborators=" + collaborators + ", reminder=" + reminder + "]";
+				+ color + ", collaborators=" + collaborators + ", reminder=" + reminder + ", fileNames=" + fileNames
+				+ "]";
 	}
 
 }
