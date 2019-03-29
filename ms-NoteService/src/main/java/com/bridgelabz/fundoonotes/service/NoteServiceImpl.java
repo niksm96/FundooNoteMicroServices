@@ -1,10 +1,6 @@
 package com.bridgelabz.fundoonotes.service;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,9 +15,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.bridgelabz.fundoonotes.model.Collaborator;
+import com.bridgelabz.fundoonotes.model.Image;
 import com.bridgelabz.fundoonotes.model.Label;
 import com.bridgelabz.fundoonotes.model.Note;
 import com.bridgelabz.fundoonotes.repository.CollaboratorRepository;
+import com.bridgelabz.fundoonotes.repository.ImageRepository;
 import com.bridgelabz.fundoonotes.repository.LabelRepository;
 import com.bridgelabz.fundoonotes.repository.NoteRepository;
 import com.bridgelabz.fundoonotes.utility.TokenGenerator;
@@ -41,6 +39,9 @@ public class NoteServiceImpl implements NoteService {
 
 	@Autowired
 	private LabelRepository labelRepository;
+
+	@Autowired
+	private ImageRepository imageRepository;
 
 	@Autowired
 	private TokenGenerator tokenGenerator;
@@ -143,21 +144,23 @@ public class NoteServiceImpl implements NoteService {
 	}
 
 	@Override
-	public boolean addImages(MultipartFile[] files, int noteId,String token) throws IOException {
-		StringBuilder fileNames = new StringBuilder();
-		for (MultipartFile file : files) {
-//			Path filePathAndName = Paths.get(uploadDirectory,file.getOriginalFilename());
-			fileNames.append(file.getOriginalFilename());
-//			Files.write(filePathAndName, file.getBytes());
-			File mainFile = new File(uploadDirectory + file.getOriginalFilename());
-			file.transferTo(mainFile);
+	public boolean addImages(MultipartFile file, int noteId) throws IOException {
+		Note note = noteRepository.findByNoteId(noteId);
+		if (note != null) {
+			Image image = new Image();
+			image.setImage(file.getBytes()).setNoteId(noteId);
+			imageRepository.save(image);
+			return true;
 		}
-		if(fileNames!=null) {
-			int userId = tokenGenerator.verifyToken(token);
-			Note note = noteRepository.findByUserIdAndNoteId(userId, noteId).get();
-			note.setFileNames(fileNames);
-			noteRepository.save(note);
-			return true;	
+		return false;
+	}
+
+	@Override
+	public boolean deleteImage(int imageId) {
+		Image image = imageRepository.findById(imageId).get();
+		if (image != null) {
+			imageRepository.delete(image);
+			return true;
 		}
 		return false;
 	}

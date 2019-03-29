@@ -67,8 +67,8 @@ public class Note {
 	@Column(name = "reminder")
 	private Timestamp reminder;
 	
-	@Column(name = "fileNames")
-	private StringBuilder fileNames;
+	@OneToMany(mappedBy = "noteId")
+	private List<Image> images;
 
 	public int getNoteId() {
 		return noteId;
@@ -190,12 +190,12 @@ public class Note {
 		return this;
 	}
 
-	public StringBuilder getFileNames() {
-		return fileNames;
+	public List<Image> getImages() {
+		return images;
 	}
 
-	public void setFileNames(StringBuilder fileNames) {
-		this.fileNames = fileNames;
+	public void setImages(List<Image> images) {
+		this.images = images;
 	}
 
 	@Override
@@ -203,8 +203,7 @@ public class Note {
 		return "Note [noteId=" + noteId + ", title=" + title + ", description=" + description + ", createdAt="
 				+ createdAt + ", updatedAt=" + updatedAt + ", isArchive=" + isArchive + ", isPinned=" + isPinned
 				+ ", isTrashed=" + isTrashed + ", userId=" + userId + ", listOfLabels=" + listOfLabels + ", color="
-				+ color + ", collaborators=" + collaborators + ", reminder=" + reminder + ", fileNames=" + fileNames
-				+ "]";
+				+ color + ", collaborators=" + collaborators + ", reminder=" + reminder + ", images=" + images + "]";
 	}
 
 }

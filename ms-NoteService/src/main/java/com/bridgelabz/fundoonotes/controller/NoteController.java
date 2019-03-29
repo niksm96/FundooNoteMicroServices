@@ -146,11 +146,16 @@ public class NoteController {
 		}
 	}
 
-	@PostMapping(value = "/uploadfile/{noteId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public ResponseEntity<?> addImage(@RequestPart("files") MultipartFile[] files, @PathVariable("noteId") int noteId,
-			@RequestHeader("token") String token) throws IOException {
-		System.out.println(files.length);
-		if (noteService.addImages(files, noteId, token))
+	@PostMapping(value = "/addImage/{noteId}")
+	public ResponseEntity<?> addImage(@RequestParam("file") MultipartFile file, @PathVariable("noteId") int noteId) throws IOException {
+		if (noteService.addImages(file, noteId))
+			return new ResponseEntity<Void>(HttpStatus.OK);
+		return new ResponseEntity<String>("Images couldn't be added", HttpStatus.CONFLICT);
+	}
+	
+	@DeleteMapping(value = "/deleteImage/{imageId}")
+	public ResponseEntity<?> deleteImage(@PathVariable("imageId") int imageId) throws IOException {
+		if (noteService.deleteImage(imageId))
 			return new ResponseEntity<Void>(HttpStatus.OK);
 		return new ResponseEntity<String>("Images couldn't be added", HttpStatus.CONFLICT);
 	}

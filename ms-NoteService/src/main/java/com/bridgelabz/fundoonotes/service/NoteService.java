@@ -30,6 +30,8 @@ public interface NoteService {
 
 	boolean removeLabelFromNote(int noteId, int labelId);
 	
-	boolean addImages(MultipartFile[] file,int noteId,String token) throws IOException;
+	boolean addImages(MultipartFile file,int noteId) throws IOException;
+
+	boolean deleteImage(int imageId);
 
 }
